@@ -32,7 +32,7 @@ class dictionary:
         lines = f.readlines()
         for line in lines:
             self.dictionary_root.add_word(line.lower())
-        print self.dictionary_root
+        print (self.dictionary_root)
 
     def is_word(self,word):
         node = self.dictionary_root
@@ -47,7 +47,7 @@ class dictionary:
         for i in self.dictionary_root.keys():
             j = 0
 
-f_name = "english_words.txt"
+f_name = "..\docs\english_words.txt"
 
 d = dictionary()
 d.read_dictionary(f_name)
@@ -59,7 +59,6 @@ print ("Done reading")
 for line in f.readlines():
     d.is_word(line.lower())
     if not d.is_word(line.lower()):
-        print line
-    else:
-        print "found words"
+        print (line)
+print ("found all other words")
 
