@@ -3,7 +3,7 @@ import unittest
 import os.path
 
 sys.path.insert(0,'..\\')
-from load_english_dictionary import dictionary as e_dict
+from load_english_dictionary import e_dict
 
 f_name = "..\\..\\docs\\english_words.txt"
 

@@ -22,11 +22,10 @@ class dict_node:
             self.is_word = True
 
 
-class dictionary:
+class e_dict:
     def __init__(self):
         self.dictionary_root = dict_node()
     def read_dictionary (self,filepath):
-        print (filepath)
         if os.path.exists(filepath):
             f = open(filepath)
             lines = f.readlines()
@@ -40,8 +39,6 @@ class dictionary:
     def is_word(self,word):
         node = self.dictionary_root
         for i in range(0,len(word)):
-            if node.is_word:
-                print (word[0:i] + " is a word")
             if word[i] in node.letters.keys():
                 node = node.letters[word[i]]
         return node.is_word
