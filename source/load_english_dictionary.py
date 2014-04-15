@@ -25,6 +25,7 @@ class dict_node:
 class e_dict:
     def __init__(self):
         self.dictionary_root = dict_node()
+
     def read_dictionary (self,filepath):
         if os.path.exists(filepath):
             f = open(filepath)
