@@ -18,7 +18,7 @@ class test_add_word(unittest.TestCase):
         assert(ed.is_word("THEODORE"))
         assert(ed.is_word("THEOdore"))
         
-    def test_multilewordswithsameroot(self):
+    def test_multiplewordswithsameroot(self):
         ed = e_dict()
         ed.add_word("he")
         ed.add_word("HELL")
@@ -26,8 +26,8 @@ class test_add_word(unittest.TestCase):
         assert(ed.is_word("he"))
         assert(ed.is_word("hell"))
         assert(ed.is_word("hello"))
-        assertFalse(ed.is_word("h"))
-        assertFalse(ed.is_word("hel"))
+        assert(False is ed.is_word("h"))
+        assert(False is ed.is_word("hel"))
 
 if __name__ == '__main__':
     unittest.main()

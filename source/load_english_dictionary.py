@@ -8,9 +8,6 @@ class dict_node:
         self.letters = {}
         self.is_word = False
 
-    def add_word (self, word):
-        self.add_letter(word,0)
-
     def add_letter (self, word, index):
         if len(word) > index:
             if word[index] in self.letters.keys():
@@ -31,18 +28,22 @@ class e_dict:
             f = open(filepath)
             lines = f.readlines()
             for line in lines:
-                self.dictionary_root.add_word(line.lower())
+                self.add_word(line.lower())
         else:
             print (filepath)
             print (os.path.abspath(filepath))
             assert False
 
-    def is_word(self,word):
+    def is_word(self,a_word):
+        word = a_word.lower()
         node = self.dictionary_root
         for i in range(0,len(word)):
             if word[i] in node.letters.keys():
                 node = node.letters[word[i]]
         return node.is_word
+
+    def add_word (self, word):
+        self.dictionary_root.add_letter(word.lower(),0)
 
     def print_words():
         for i in self.dictionary_root.keys():
