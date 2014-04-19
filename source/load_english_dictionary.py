@@ -4,9 +4,7 @@ class dict_node:
     def __init__(self):
         self.is_word = False
         self.current = None
-        self.next_letter = None
         self.letters = {}
-        self.is_word = False
 
     def add_letter (self, word, index):
         if len(word) > index:

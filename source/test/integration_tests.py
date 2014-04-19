@@ -2,6 +2,8 @@ import sys
 import unittest
 import os.path
 import time
+import sqlite3
+import os
 
 sys.path.insert(0,'..\\')
 from load_english_dictionary import e_dict
@@ -45,8 +47,12 @@ class test_everything(unittest.TestCase):
             t2 = time.time()
             line_time = t2-t1
 
-            assert dict_time <= all_time
-            assert dict_time <= line_time
+            if dict_time > all_time:
+                print (word)
+                assert False
+            if dict_time > line_time:
+                print (word)
+                assert False
 
     def test_loads_all_words(self):
         d = e_dict()
@@ -58,7 +64,44 @@ class test_everything(unittest.TestCase):
             d.is_word(line.lower())
             assert d.is_word(line.lower())
 
+    def test_against_my_sql(self):
+        d = e_dict()
+        d.read_dictionary(f_name)
 
+        f = open(f_name)
+
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        c.execute('''CREATE TABLE my_dict (word text)''')
+        
+        for word in f.readlines():
+            c.execute("INSERT INTO my_dict VALUES (?)",[word])
+
+        conn.commit()
+
+        t = open(test_name)
+        test_words = t.readlines()
+
+        t1 = time.time()
+        t2 = time.time()
+        for word in test_words:
+            t1 = time.time()
+            d.is_word(word)
+            t2 = time.time()
+            d_time = t2-t1
+
+            t1 = time.time()
+            c.execute('SELECT * FROM my_dict WHERE word=?',[word])
+            t2 = time.time()
+            b_time = t2-t1
+
+            if d_time > b_time:
+                print "D time is: " + str(d_time)
+                print "B time is: " + str(b_time)
+        c.close()
+        conn.close()
+
+        os.remove("example.db")
 
 if __name__ == '__main__':
     unittest.main()
