@@ -43,8 +43,9 @@ class e_dict:
     def add_word (self, word):
         self.dictionary_root.add_letter(word.lower(),0)
 
-    def print_words():
-        for i in self.dictionary_root.keys():
-            j = 0
+    def get_words(node):
+        for i in node.letters:
+            if i is not None:
+                get_words(node)
 
 
