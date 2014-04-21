@@ -2,7 +2,8 @@ class boggle:
     def __init__ (self, num_columns = 5, num_rows = 5):
         self.num_columns = num_columns
         self.num_rows = num_rows
-        self.boggle_array = [self.num_columns * self.num_rows]
+        self.boggle_array = [None]*(self.num_columns * self.num_rows)
+        self.size = self.num_columns*self.num_rows
 
     def is_adjacent(self, index_1, index_2):
         retVal = False
@@ -25,3 +26,13 @@ class boggle:
             if self.is_adjacent(index,i) and (i is not index):
                 retVal.append(i)
         return retVal
+
+    def insert(self,character,index):
+        if index < len(self.boggle_array):
+            self.boggle_array[index] = character
+
+    def is_full(self):
+        for i in range(0,self.size):
+            if self.boggle_array[i] is None:
+                return False
+        return True

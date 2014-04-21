@@ -7,6 +7,24 @@ from boggle_board import boggle
 
 test_name = "..\\..\\docs\\test_words.txt"
 
+class test_boggle_letters(unittest.TestCase):
+    def test_insert_index(self):
+        b = boggle(4,4)
+        b.insert('A',0)
+        assert b.boggle_array[0] is 'A'
+
+        b.insert('B',8)
+        assert b.boggle_array[8] is 'B'
+
+    def test_boggle_is_full(self):
+        b = boggle(4,4)
+        assert b.is_full() is False
+
+        for i in range(0,16):
+            b.insert('A',i)
+        assert b.is_full()
+            
+
 class test_boggle_adjacent(unittest.TestCase):
     def test_four_by_four(self):
         b = boggle(4,4)
@@ -109,20 +127,6 @@ class test_add_word(unittest.TestCase):
         assert(ed.is_word("hello"))
         assert(False is ed.is_word("h"))
         assert(False is ed.is_word("hel"))
-
-    def test_get_all_words(self):
-        ed = e_dict()
-        t = open(test_name)
-        i = 0
-        lines = t.readlines()
-        #for i,word in enumerate(lines):
-        #    ed.add_word(word)
-
-        #all_words = ed.get_words(ed.dictionary_root)
-        #assert len(all_words) is len(lines)
-
-        #for word in lines:
-        #    assert word in all_words
         
 
 if __name__ == '__main__':
