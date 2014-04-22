@@ -36,3 +36,7 @@ class boggle:
             if self.boggle_array[i] is None:
                 return False
         return True
+
+    def set_array(self, array):
+        self.boggle_array = array
+

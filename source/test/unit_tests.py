@@ -4,8 +4,17 @@ import sys
 sys.path.insert(0,'..\\')
 from load_english_dictionary import e_dict
 from boggle_board import boggle
+from solve_boggle import solve_boggle
 
 test_name = "..\\..\\docs\\test_words.txt"
+
+class test_solve_boggle(unittest.TestCase):
+    def test_init(self):
+        self.columns = 4
+        self.rows = 4
+        array = ["C"]*(self.rows*self.columns)
+        sb = solve_boggle(array,self.columns,self.rows)
+        assert sb
 
 class test_boggle_letters(unittest.TestCase):
     def test_insert_index(self):
@@ -22,6 +31,13 @@ class test_boggle_letters(unittest.TestCase):
 
         for i in range(0,16):
             b.insert('A',i)
+        assert b.is_full()
+
+    def test_boggle_set_array(self):
+        b = boggle(4,4)
+        assert b.is_full() is False
+        array = ["a"]*16
+        b.set_array(array)
         assert b.is_full()
             
 
@@ -44,7 +60,7 @@ class test_boggle_adjacent(unittest.TestCase):
         assert b.is_adjacent(5,10)
         assert b.is_adjacent(1,4)
 
-    def test_four_by_four(self):
+    def test_five_by_three(self):
         b = boggle(5,3)
         assert b.is_adjacent(0,1)
         assert b.is_adjacent(6,7)
