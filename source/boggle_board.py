@@ -7,15 +7,15 @@ class boggle:
 
     def is_adjacent(self, index_1, index_2):
         retVal = False
-        if index_1 is index_2:
-            retVal = True
-        row_1 = index_1/self.num_columns
-        row_2 = index_2/self.num_columns
+
+        row_1 = index_1//self.num_columns
+        row_2 = index_2//self.num_columns
         column_1 = index_1%self.num_columns
         column_2 = index_2%self.num_columns
 
-        # check diagonal
-        if (abs(row_1 - row_2) <= 1) and (abs(column_1 - column_2) <= 1):
+        rows_are_less_than_1_away = abs(row_1-row_2) <= 1
+        columns_are_less_than_1_away = abs(column_2-column_1) <= 1
+        if rows_are_less_than_1_away and columns_are_less_than_1_away:
             retVal = True
 
         return retVal

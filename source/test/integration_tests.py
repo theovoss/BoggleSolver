@@ -96,8 +96,8 @@ class test_everything(unittest.TestCase):
             b_time = t2-t1
 
             if d_time > b_time:
-                print "D time is: " + str(d_time)
-                print "B time is: " + str(b_time)
+                print ("D time is: " + str(d_time))
+                print ("B time is: " + str(b_time))
         c.close()
         conn.close()
 

@@ -10,11 +10,17 @@ test_name = "..\\..\\docs\\test_words.txt"
 
 class test_solve_boggle(unittest.TestCase):
     def test_init(self):
-        self.columns = 4
-        self.rows = 4
-        array = ["C"]*(self.rows*self.columns)
+        self.columns = 5
+        self.rows = 1
+        array = ["w","a","t","e","r"]
         sb = solve_boggle(array,self.columns,self.rows)
-        assert sb
+        print (str(sb.e_dict.is_word("a")))
+        print (str(sb.e_dict.is_word("water")))
+        solved = sb.solve()
+        print (solved)
+        #sb.e_dict.get_words(sb.e_dict.dictionary_root)
+        assert "water" in solved
+        assert "a" in solved
 
 class test_boggle_letters(unittest.TestCase):
     def test_insert_index(self):
