@@ -15,7 +15,7 @@ class solve_boggle:
         for i,letter in enumerate(self.boggle.boggle_array):
             w = self.recurse_search_for_words(i,letter,'')
             words += w
-            print (w)
+            # print (w)
         return words
 
     def recurse_search_for_words(self,index,letter,word):
@@ -24,8 +24,6 @@ class solve_boggle:
             if self.e_dict.is_still_potentially_valid(word+letter):
                 retVal += self.recurse_search_for_words(indexes,self.boggle.boggle_array[indexes],word+letter)
         if self.e_dict.is_word(word+letter):
-            print ("\n\nFound word!!\n\n")
+            # print ("\n\nFound word!!\n\n")
             retVal.append(word+letter)
-        print ("Word is: " + word+letter)
-        print ("is word: " + str(self.e_dict.is_word(word+letter)))
         return retVal

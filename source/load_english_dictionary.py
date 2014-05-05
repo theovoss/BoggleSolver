@@ -16,7 +16,6 @@ class dict_node:
         else:
             self.is_word = True
             self.word = word
-            print ("Depth is: " + str(index) + " for word " + word)
             
 
 
@@ -29,7 +28,7 @@ class e_dict:
             f = open(filepath)
             lines = f.readlines()
             for line in lines:
-                self.add_word(line.lower())
+                self.add_word(line.lower().strip())
         else:
             print (filepath)
             print (os.path.abspath(filepath))
@@ -45,7 +44,6 @@ class e_dict:
 
     def add_word (self, word):
         self.dictionary_root.add_letter(word.lower(),0)
-        print ("word added: " + word)
 
     def get_words(self,node):
         for i in node.letters:

@@ -14,11 +14,7 @@ class test_solve_boggle(unittest.TestCase):
         self.rows = 1
         array = ["w","a","t","e","r"]
         sb = solve_boggle(array,self.columns,self.rows)
-        print (str(sb.e_dict.is_word("a")))
-        print (str(sb.e_dict.is_word("water")))
         solved = sb.solve()
-        print (solved)
-        #sb.e_dict.get_words(sb.e_dict.dictionary_root)
         assert "water" in solved
         assert "a" in solved
 
