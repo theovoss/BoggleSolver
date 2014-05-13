@@ -24,11 +24,15 @@ class test_everything(unittest.TestCase):
         allwords = f.read()
         alllines = p.readlines()
 
+        num_slower_than_read = 0
+        num_slower_than_readlines = 0
+
         t1 = time.time()
         t2 = time.time()
+
         for a_word in test_words:
             word = a_word
-            lower = a_word.lower()
+            lower = a_word.lower().strip()
             
             t1 = time.time()
             assert d.is_word(lower)
@@ -48,11 +52,14 @@ class test_everything(unittest.TestCase):
             line_time = t2-t1
 
             if dict_time > all_time:
-                print (word)
-                assert False
+                # print (word)
+                num_slower_than_read+=1
             if dict_time > line_time:
-                print (word)
-                assert False
+                # print (word)
+                num_slower_than_readlines+=1
+
+        assert num_slower_than_read <= 1
+        assert num_slower_than_readlines <= 1
 
     def test_loads_all_words(self):
         d = e_dict()
@@ -61,14 +68,16 @@ class test_everything(unittest.TestCase):
         f = open(f_name)
 
         for line in f.readlines():
-            d.is_word(line.lower())
-            assert d.is_word(line.lower())
+            d.is_word(line.lower().strip())
+            assert d.is_word(line.lower().strip())
 
     def test_against_my_sql(self):
         d = e_dict()
         d.read_dictionary(f_name)
 
         f = open(f_name)
+
+        num_slower_than_sql = 0
 
         conn = sqlite3.connect('example.db')
         c = conn.cursor()
@@ -96,12 +105,15 @@ class test_everything(unittest.TestCase):
             b_time = t2-t1
 
             if d_time > b_time:
+                num_slower_than_sql += 1
                 print ("D time is: " + str(d_time))
                 print ("B time is: " + str(b_time))
         c.close()
         conn.close()
 
         os.remove("example.db")
+
+        assert num_slower_than_sql <= 1
 
 if __name__ == '__main__':
     unittest.main()

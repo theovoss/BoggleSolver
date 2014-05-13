@@ -13,10 +13,14 @@ class test_solve_boggle(unittest.TestCase):
         self.columns = 5
         self.rows = 1
         array = ["w","a","t","e","r"]
-        sb = solve_boggle(array,self.columns,self.rows)
+        sb = solve_boggle(array,self.columns,self.rows,"..\\..\\docs\\test_words.txt")
+        sb.e_dict.add_word("wata")
+        sb.e_dict.add_word("wate")
         solved = sb.solve()
         assert "water" in solved
         assert "a" in solved
+        assert "wata" not in solved
+        assert "wate" in solved
 
 class test_boggle_letters(unittest.TestCase):
     def test_insert_index(self):

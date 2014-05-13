@@ -20,10 +20,10 @@ class boggle:
 
         return retVal
 
-    def get_adjacent(self,index):
+    def get_adjacent(self,index,ignore=[]):
         retVal = []
         for i in range(0,self.num_columns * self.num_rows):
-            if self.is_adjacent(index,i) and (i is not index):
+            if self.is_adjacent(index,i) and (i is not index) and (not ignore or (i not in ignore)):
                 retVal.append(i)
         return retVal
 
