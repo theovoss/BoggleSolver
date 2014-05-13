@@ -13,7 +13,6 @@ class solve_boggle:
     def solve(self):
         words = []
         for i,letter in enumerate(self.boggle.boggle_array):
-            print ("Index is: " + str(i) + " letter is: " + str(letter))
             w = self.recurse_search_for_words(i,letter,'',[i])
             words += w
             # print (w)
