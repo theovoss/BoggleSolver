@@ -10,7 +10,7 @@ from load_english_dictionary import e_dict
 from boggle_board import boggle
 from solve_boggle import solve_boggle
 
-f_name = "..\\..\\docs\\english_words.txt"
+f_name = "..\\..\\docs\\twl06.txt"
 test_name = "..\\..\\docs\\test_words.txt"
 
 class test_everything(unittest.TestCase):
@@ -30,7 +30,7 @@ class test_everything(unittest.TestCase):
 
         for word in known_words:
             if word not in solved:
-                print word
+                print (word)
                 assert False
 
 
@@ -40,11 +40,14 @@ class test_everything(unittest.TestCase):
 
         t = open(test_name)
         test_words = t.readlines()
+        t.close()
 
         f = open(f_name)
         p = open(f_name)
         allwords = f.read()
         alllines = p.readlines()
+        f.close()
+        p.close()
 
         num_slower_than_read = 0
         num_slower_than_readlines = 0
@@ -55,6 +58,8 @@ class test_everything(unittest.TestCase):
         for a_word in test_words:
             word = a_word
             lower = a_word.lower().strip()
+            if not d.is_word(lower):
+                print (word)
             
             t1 = time.time()
             assert d.is_word(lower)
@@ -93,6 +98,8 @@ class test_everything(unittest.TestCase):
             d.is_word(line.lower().strip())
             assert d.is_word(line.lower().strip())
 
+        f.close()
+
     def test_against_my_sql(self):
         d = e_dict()
         d.read_dictionary(f_name)
@@ -108,10 +115,13 @@ class test_everything(unittest.TestCase):
         for word in f.readlines():
             c.execute("INSERT INTO my_dict VALUES (?)",[word])
 
+        f.close()
+
         conn.commit()
 
         t = open(test_name)
         test_words = t.readlines()
+        t.close()
 
         t1 = time.time()
         t2 = time.time()

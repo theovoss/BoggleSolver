@@ -16,6 +16,7 @@ class test_solve_boggle(unittest.TestCase):
         sb = solve_boggle(array,self.columns,self.rows,"..\\..\\docs\\test_words.txt")
         sb.e_dict.add_word("wata")
         sb.e_dict.add_word("wate")
+        sb.e_dict.add_word("a")
         solved = sb.solve()
         assert "water" in solved
         assert "a" in solved
