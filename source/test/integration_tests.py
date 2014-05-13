@@ -7,11 +7,33 @@ import os
 
 sys.path.insert(0,'..\\')
 from load_english_dictionary import e_dict
+from boggle_board import boggle
+from solve_boggle import solve_boggle
 
 f_name = "..\\..\\docs\\english_words.txt"
 test_name = "..\\..\\docs\\test_words.txt"
 
 class test_everything(unittest.TestCase):
+    def test_solves_boggle(self):
+        self.columns = 4
+        self.rows = 4
+        array = "a b c d e f g h i j k l m n o p".split()
+
+        sb = solve_boggle(array,self.columns,self.rows)
+
+        # found words from: http://www.bogglecheat.net/, though may not be in my dictionary
+        known_words = ["knife","mino","bein","fink","nife","glop","polk","mink","fino","jink","nief","knop","ink","fin","jin","nim","kop","pol","fab","fie","nie","kon","lop","ab","ef","if","mi","be","jo","ch","on","lo","ae","ea","in","ba","fa","no","ko","op","po"]
+        for word in known_words:
+            sb.e_dict.add_word(word)
+
+        solved = sb.solve()
+
+        for word in known_words:
+            if word not in solved:
+                print word
+                assert False
+
+
     def test_search_speed_vs_raw_read(self):
         d = e_dict()
         d.read_dictionary(f_name)

@@ -60,6 +60,7 @@ class e_dict:
                 node = node.letters[word[i]]
             else:
                 node = None
+                break
         return node
 
     def is_still_potentially_valid(self,word):

@@ -13,7 +13,7 @@ class boggle:
         column_1 = index_1%self.num_columns
         column_2 = index_2%self.num_columns
 
-        rows_are_less_than_1_away = abs(row_1-row_2) <= 1
+        rows_are_less_than_1_away = abs(row_2-row_1) <= 1
         columns_are_less_than_1_away = abs(column_2-column_1) <= 1
         if rows_are_less_than_1_away and columns_are_less_than_1_away:
             retVal = True
@@ -23,7 +23,7 @@ class boggle:
     def get_adjacent(self,index,ignore=[]):
         retVal = []
         for i in range(0,self.num_columns * self.num_rows):
-            if self.is_adjacent(index,i) and (i is not index) and (not ignore or (i not in ignore)):
+            if self.is_adjacent(index,i) and (i is not index) and (i not in ignore):
                 retVal.append(i)
         return retVal
 
@@ -39,4 +39,5 @@ class boggle:
 
     def set_array(self, array):
         self.boggle_array = array
+
 
