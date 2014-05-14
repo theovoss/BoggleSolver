@@ -1,3 +1,4 @@
+import os
 from boggle_board import boggle
 from load_english_dictionary import e_dict
 
