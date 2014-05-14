@@ -5,13 +5,13 @@ import time
 import sqlite3
 import os
 
-sys.path.insert(0,'..\\')
+sys.path.insert(0,os.path.join('..'))
 from load_english_dictionary import e_dict
 from boggle_board import boggle
 from solve_boggle import solve_boggle
 
-f_name = "..\\..\\docs\\twl06.txt"
-test_name = "..\\..\\docs\\test_words.txt"
+f_name = os.path.join("..","..","docs","twl06.txt")
+test_name = os.path.join("..","..","docs","test_words.txt")
 
 class test_everything(unittest.TestCase):
     def test_solves_boggle(self):
