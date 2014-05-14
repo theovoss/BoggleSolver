@@ -5,6 +5,6 @@ python:
   - 3.4
 install:
   - pip install coveralls
-script: nosetests
+script: runtests.sh
 after_success:
   - coveralls
