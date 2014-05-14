@@ -5,6 +5,6 @@ python:
   - 3.4
 install:
   - pip install coveralls
-script: runtests.sh
+script: "./runtests.sh"
 after_success:
   - coveralls
