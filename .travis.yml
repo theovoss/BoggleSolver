@@ -6,8 +6,8 @@ python:
 install:
   - pip install coveralls
 before_script:
-  - chmod +x runtests.sh
   - cd source/test/
+  - chmod +x runtests.sh
 script: "./runtests.sh"
 after_success:
   - coveralls
