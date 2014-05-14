@@ -14,7 +14,7 @@ class test_solve_boggle(unittest.TestCase):
         self.columns = 5
         self.rows = 1
         array = ["w","a","t","e","r"]
-        sb = solve_boggle(array,self.columns,self.rows,"..\\..\\docs\\test_words.txt")
+        sb = solve_boggle(array,self.columns,self.rows,test_name)
         sb.e_dict.add_word("wata")
         sb.e_dict.add_word("wate")
         sb.e_dict.add_word("a")
