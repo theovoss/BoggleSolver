@@ -5,9 +5,6 @@ python:
   - 3.4
 install:
   - pip install coveralls
-script: |
-cd source/test
-python unit_tests.py
-python integration_test.py
+script: nosetests
 after_success:
   - coveralls
