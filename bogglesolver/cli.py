@@ -12,5 +12,11 @@ import boggle_board
 import load_english_dictionary
 import solve_boggle
 
+
 def main(args=None):
-	argparse.ArgumenParser()
+    """
+    Main entry point for the Command-line-interface.
+
+    Currently not implemented.
+    """
+    argparse.ArgumenParser()

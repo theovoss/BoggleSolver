@@ -1,13 +1,9 @@
 language: python
 python:
-  - 2.7
   - 3.3
   - 3.4
 install:
   - pip install coveralls
-before_script:
-  - cd source/test/
-  - chmod +x runtests.sh
-script: "./runtests.sh"
+script: make ci
 after_success:
   - coveralls
