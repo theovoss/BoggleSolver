@@ -4,8 +4,8 @@
 
 
 import os
-from boggle_board import boggle
-from load_english_dictionary import e_dict
+from bogglesolver.boggle_board import boggle
+from bogglesolver.load_english_dictionary import e_dict
 
 
 class solve_boggle:

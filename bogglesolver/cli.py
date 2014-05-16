@@ -8,9 +8,9 @@ import ast
 import argparse
 import logging
 
-import boggle_board
-import load_english_dictionary
-import solve_boggle
+from bogglesolver import boggle_board
+from bogglesolver import load_english_dictionary
+from bogglesolver import solve_boggle
 
 
 def main(args=None):

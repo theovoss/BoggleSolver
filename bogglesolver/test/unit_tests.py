@@ -5,12 +5,10 @@
 
 import unittest
 import os
-import sys
-sys.path.insert(0, os.path.join('..'))
 
-from load_english_dictionary import e_dict
-from boggle_board import boggle
-from solve_boggle import solve_boggle
+from bogglesolver.load_english_dictionary import e_dict
+from bogglesolver.boggle_board import boggle
+from bogglesolver.solve_boggle import solve_boggle
 
 test_name = os.path.join("..", "..", "docs", "test_words.txt")
 
