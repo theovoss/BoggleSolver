@@ -55,7 +55,7 @@ class e_dict:
         else:
             print(filepath)
             print(os.path.abspath(filepath))
-            assert False
+            raise OSError(2, 'No such file or direcotory', str(filepath))
         f.close()
 
     def is_word(self, word):

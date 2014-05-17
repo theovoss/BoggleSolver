@@ -142,9 +142,9 @@ class test_boggle_adjacent(unittest.TestCase):
         assert len(adj) is len(t)
 
 
-class test_add_word(unittest.TestCase):
+class test_dictionary(unittest.TestCase):
 
-    """Unit tests for adding words to the dictionary."""
+    """Unit tests for the dictionary."""
 
     def test_hi(self):
         ed = e_dict()
@@ -169,6 +169,15 @@ class test_add_word(unittest.TestCase):
         assert(False is ed.is_word("h"))
         assert(False is ed.is_word("hel"))
 
+    def test_read_dict_bad_path(self):
+        ed = e_dict()
+        bad_path = "obviosly_bad_FILE-pAtH_god_i?hopethsIsnot_an_actualpath.garbled"
+        try:
+            ed.read_dictionary(bad_path)
+        except OSError as err:
+            assert err.errno == 2
+            assert err.filename == bad_path
+            assert err.strerror == 'No such file or direcotory'
 
 if __name__ == '__main__':
     unittest.main()
