@@ -17,7 +17,7 @@ class solve_boggle:
     Then it searches the board for all valid words.
     """
 
-    def __init__(self, boggle_array, columns, rows, dict_path=os.path.join("..", "..", "docs", "twl06.txt")):
+    def __init__(self, boggle_array, columns, rows, dict_path=os.path.join("docs", "twl06.txt")):
         self.e_dict_path = dict_path
         self.e_dict = e_dict()
         self.e_dict.read_dictionary(self.e_dict_path)
