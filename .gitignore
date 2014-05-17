@@ -1,53 +1,34 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
+# Temporary Python files
+*.pyc
+*.egg-info
+__pycache__
 
-# C extensions
-*.so
+# Temporary OS files
+Icon*
 
-# Distribution / packaging
-.Python
-env/
-bin/
-build/
-develop-eggs/
-dist/
-eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.coverage
+# Temporary virtualenv files
 .cache
-nosetests.xml
-coverage.xml
+env
 
-# Translations
-*.mo
+# Generated documentation
+*.gen.*
+apidocs
+docs/*.html
+*.rst
+docs/*.png
 
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
+# Google Drive
+*.gdoc
+*.gsheet
+*.gslides
+*.gdraw
 
-# Rope
-.ropeproject
+# Testing and coverage results
+.coverage
 
-# Django stuff:
-*.log
-*.pot
+# Build and release directories
+build
+dist
 
-# Sphinx documentation
-docs/_build/
+# Sublime Text
+*.sublime-workspace
