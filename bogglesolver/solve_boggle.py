@@ -27,7 +27,7 @@ class solve_boggle:
     def solve(self):
         words = []
         for i, letter in enumerate(self.boggle.boggle_array):
-            w = self.recurse_search_for_words(i, letter, '', [i])
+            w = self.recurse_search_for_words(i, letter, '', None)
             words += w
             # print (w)
         return words

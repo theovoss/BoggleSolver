@@ -103,6 +103,13 @@ class test_boggle_adjacent(unittest.TestCase):
             assert index in adj
         assert len(adj) is len(t)
 
+        # middle - except some already visited
+        adj = b.get_adjacent(6, [0, 1, 7, 11])
+        t = [2, 5, 10, 12]
+        for index in t:
+            assert index in adj
+        assert len(adj) is len(t)
+
         # side
         adj = b.get_adjacent(9)
         t = [3, 4, 8, 13, 14]
@@ -110,9 +117,23 @@ class test_boggle_adjacent(unittest.TestCase):
             assert index in adj
         assert len(adj) is len(t)
 
+        # side - except some already visited
+        adj = b.get_adjacent(9, [4, 13, 1])
+        t = [3, 8, 14]
+        for index in t:
+            assert index in adj
+        assert len(adj) is len(t)
+
         # corner
         adj = b.get_adjacent(0)
         t = [1, 5, 6]
+        for index in t:
+            assert index in adj
+        assert len(adj) is len(t)
+
+        # corner - except some already visited
+        adj = b.get_adjacent(0, [5, 4, 9])
+        t = [1, 6]
         for index in t:
             assert index in adj
         assert len(adj) is len(t)
@@ -127,9 +148,23 @@ class test_boggle_adjacent(unittest.TestCase):
             assert index in adj
         assert len(adj) is len(t)
 
+        # middle - except some already visited
+        adj = b.get_adjacent(6, [2, 4, 6, 10])
+        t = [1, 3, 5, 7, 9, 11]
+        for index in t:
+            assert index in adj
+        assert len(adj) is len(t)
+
         # side
         adj = b.get_adjacent(7)
         t = [2, 3, 6, 10, 11]
+        for index in t:
+            assert index in adj
+        assert len(adj) is len(t)
+
+        # side - except some already visited
+        adj = b.get_adjacent(7, [3, 10, 20, 500])
+        t = [2, 6, 11]
         for index in t:
             assert index in adj
         assert len(adj) is len(t)
@@ -140,6 +175,10 @@ class test_boggle_adjacent(unittest.TestCase):
         for index in t:
             assert index in adj
         assert len(adj) is len(t)
+
+        # corner - except some already visited
+        adj = b.get_adjacent(12, [8, 9, 13])
+        assert len(adj) is 0
 
 
 class test_dictionary(unittest.TestCase):
