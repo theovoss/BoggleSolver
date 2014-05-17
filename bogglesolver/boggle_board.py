@@ -32,7 +32,9 @@ class boggle:
 
         return retVal
 
-    def get_adjacent(self, index, ignore=[]):
+    def get_adjacent(self, index, ignore=None):
+        if ignore is None:
+            ignore = []
         retVal = []
         for i in range(0, self.num_columns * self.num_rows):
             if self.is_adjacent(index, i) and (i is not index) and (i not in ignore):

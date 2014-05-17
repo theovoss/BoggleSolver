@@ -32,7 +32,9 @@ class solve_boggle:
             # print (w)
         return words
 
-    def recurse_search_for_words(self, a_index, letter, word, indexes_searched=[]):
+    def recurse_search_for_words(self, a_index, letter, word, indexes_searched=None):
+        if indexes_searched is None:
+            indexes_searched = []
         retVal = []
         for index in self.boggle.get_adjacent(a_index, indexes_searched):
             searched = indexes_searched + [index]
