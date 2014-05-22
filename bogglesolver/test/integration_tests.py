@@ -18,6 +18,26 @@ f_name = os.path.join("docs", "twl06.txt")
 test_name = os.path.join("docs", "test_words.txt")
 
 
+class test_solve_boggle(unittest.TestCase):
+
+    """Unit tests for the solve boggle class."""
+
+    @unittest.skip("Skipping solve tests.")
+    def test_init(self):
+        self.columns = 5
+        self.rows = 1
+        array = ["w", "a", "t", "e", "r"]
+        sb = solve_boggle(array, self.columns, self.rows, test_name)
+        sb.e_dict.add_word("wata")
+        sb.e_dict.add_word("wate")
+        sb.e_dict.add_word("a")
+        solved = sb.solve()
+        assert "water" in solved
+        assert "a" in solved
+        assert "wata" not in solved
+        assert "wate" in solved
+
+
 class test_everything(unittest.TestCase):
 
     """

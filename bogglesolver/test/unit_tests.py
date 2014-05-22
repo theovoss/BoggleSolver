@@ -13,26 +13,6 @@ from bogglesolver.solve_boggle import solve_boggle
 test_name = os.path.join("docs", "test_words.txt")
 
 
-class test_solve_boggle(unittest.TestCase):
-
-    """Unit tests for the solve boggle class."""
-
-    @unittest.skip("Skipping solve tests.")
-    def test_init(self):
-        self.columns = 5
-        self.rows = 1
-        array = ["w", "a", "t", "e", "r"]
-        sb = solve_boggle(array, self.columns, self.rows, test_name)
-        sb.e_dict.add_word("wata")
-        sb.e_dict.add_word("wate")
-        sb.e_dict.add_word("a")
-        solved = sb.solve()
-        assert "water" in solved
-        assert "a" in solved
-        assert "wata" not in solved
-        assert "wate" in solved
-
-
 class test_boggle_letters(unittest.TestCase):
 
     """Unit tests for adding letters to the boggle board."""
@@ -218,6 +198,29 @@ class test_dictionary(unittest.TestCase):
             assert err.errno == 2
             assert err.filename == bad_path
             assert err.strerror == 'No such file or direcotory'
+
+    def test_is_still_valid(self):
+        ed = e_dict()
+        ed.read_dictionary(test_name)
+        assert ed.is_still_potentially_valid("ortho")
+        assert ed.is_still_potentially_valid("orthorhombic")
+        assert ed.is_still_potentially_valid("orthorhombics") is False
+        assert ed.is_still_potentially_valid("1") is False
+        assert ed.is_still_potentially_valid("aa")
+        assert ed.is_still_potentially_valid("A")
+        assert ed.is_still_potentially_valid("AaA") is False
+
+    def test_get_words(self):
+        ed = e_dict()
+        ed.read_dictionary(test_name)
+        words = ed.get_words(ed.dictionary_root)
+        print(words)
+        f = open(test_name)
+        dict_words = f.readlines()
+        for word in dict_words:
+            print(word)
+            assert word.strip() in words
+        assert len(words) is len(dict_words)
 
 if __name__ == '__main__':
     unittest.main()

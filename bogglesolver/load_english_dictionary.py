@@ -52,11 +52,11 @@ class e_dict:
             lines = f.readlines()
             for line in lines:
                 self.add_word(line.lower().strip())
+            f.close()
         else:
             print(filepath)
             print(os.path.abspath(filepath))
             raise OSError(2, 'No such file or direcotory', str(filepath))
-        f.close()
 
     def is_word(self, word):
         retVal = False
@@ -68,12 +68,12 @@ class e_dict:
     def add_word(self, word):
         self.dictionary_root.add_letter(word.lower(), 0)
 
-    def get_words(self, node):
-        for i in node.letters:
-            if i is not None:
-                self.get_words(node)
-        print(node.letters)
-        return
+    def get_words(self, node, values=[]):
+        for n in node.letters.keys():
+            values = self.get_words(node.letters[n], values)
+        if node.is_word and node.word not in values:
+            values.append(node.word)
+        return values
 
     def get_node(self, string):
         word = string.lower()
