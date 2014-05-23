@@ -22,7 +22,7 @@ class test_solve_boggle(unittest.TestCase):
 
     """Unit tests for the solve boggle class."""
 
-    @unittest.skip("Skipping solve tests.")
+    # @unittest.skip("Skipping solve tests.")
     def test_init(self):
         self.columns = 5
         self.rows = 1
@@ -47,7 +47,7 @@ class test_everything(unittest.TestCase):
     Could speed these up a lot if I store that dictionary globally.
     """
 
-    @unittest.skip("Skipping integration tests.")
+    # @unittest.skip("Skipping integration tests.")
     def test_solves_boggle(self):
         self.columns = 4
         self.rows = 4
@@ -67,7 +67,7 @@ class test_everything(unittest.TestCase):
                 print(word)
                 assert False
 
-    @unittest.skip("Skipping integration tests.")
+    # @unittest.skip("Skipping integration tests.")
     def test_search_speed_vs_raw_read(self):
         d = e_dict()
         d.read_dictionary(f_name)
@@ -122,7 +122,7 @@ class test_everything(unittest.TestCase):
         assert num_slower_than_read <= 1
         assert num_slower_than_readlines <= 1
 
-    @unittest.skip("Skipping integration tests.")
+    # @unittest.skip("Skipping integration tests.")
     def test_loads_all_words(self):
         d = e_dict()
         d.read_dictionary(f_name)
@@ -135,7 +135,7 @@ class test_everything(unittest.TestCase):
 
         f.close()
 
-    @unittest.skip("Skipping integration tests.")
+    # @unittest.skip("Skipping integration tests.")
     def test_against_my_sql(self):
         d = e_dict()
         d.read_dictionary(f_name)
