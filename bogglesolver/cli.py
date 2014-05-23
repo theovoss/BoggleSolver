@@ -2,15 +2,10 @@
 
 """Command-line interface for boggle solver."""
 
-import os
-import sys
-import ast
 import argparse
-import logging
 
-from bogglesolver import boggle_board
-from bogglesolver import load_english_dictionary
-from bogglesolver import solve_boggle
+# from bogglesolver.boggle_board import boggle
+# from bogglesolver.load_english_dictionary import e_dict
 
 
 def main(args=None):
@@ -19,4 +14,10 @@ def main(args=None):
 
     Currently not implemented.
     """
-    argparse.ArgumenParser()
+    print(args)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-F', '--no-reformat', action='store_true',
+                        help="do not reformat item files during validation")
+
+if __name__ == '__main__':
+    main()
