@@ -5,17 +5,25 @@
 
 import unittest
 import os
+import subprocess
 
 from bogglesolver.load_english_dictionary import e_dict
 from bogglesolver.boggle_board import boggle
 from bogglesolver.solve_boggle import solve_boggle
 
-test_name = os.path.join("docs", "test_words.txt")
+from bogglesolver.twl06 import test_word_list
 
 
 class test_boggle_letters(unittest.TestCase):
 
     """Unit tests for adding letters to the boggle board."""
+
+    def test_print_board(self):
+        b = boggle(4, 4)
+        array = "a b c d e f g h i j k l m n o p".split(' ')
+        b.set_array(array)
+        s = print(b)
+        assert False
 
     def test_insert_index(self):
         b = boggle(4, 4)
@@ -201,7 +209,7 @@ class test_dictionary(unittest.TestCase):
 
     def test_is_still_valid(self):
         ed = e_dict()
-        ed.read_dictionary(test_name)
+        ed.read_dictionary(True)
         assert ed.is_still_potentially_valid("ortho")
         assert ed.is_still_potentially_valid("orthorhombic")
         assert ed.is_still_potentially_valid("orthorhombics") is False
@@ -212,14 +220,13 @@ class test_dictionary(unittest.TestCase):
 
     def test_get_words(self):
         ed = e_dict()
-        ed.read_dictionary(test_name)
+        ed.read_dictionary(True)
         words = ed.get_words(ed.dictionary_root)
         print(words)
-        f = open(test_name)
-        dict_words = f.readlines()
+        dict_words = test_word_list
         for word in dict_words:
             print(word)
-            assert word.strip() in words
+            assert word.lower() in words
         assert len(words) is len(dict_words)
 
 if __name__ == '__main__':

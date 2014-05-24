@@ -3,7 +3,6 @@
 """Class to solve the boggle boggle_board."""
 
 
-import os
 from bogglesolver.boggle_board import boggle
 from bogglesolver.load_english_dictionary import e_dict
 
@@ -17,10 +16,10 @@ class solve_boggle:
     Then it searches the board for all valid words.
     """
 
-    def __init__(self, boggle_array, columns, rows, dict_path=os.path.join("docs", "twl06.txt")):
-        self.e_dict_path = dict_path
+    def __init__(self, boggle_array, columns, rows, use_test_words=False):
+        self.use_test_words = use_test_words
         self.e_dict = e_dict()
-        self.e_dict.read_dictionary(self.e_dict_path)
+        self.e_dict.read_dictionary(self.use_test_words)
         self.boggle = boggle(columns, rows)
         self.boggle.set_array(boggle_array)
 

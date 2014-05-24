@@ -4,6 +4,8 @@
 
 
 import os.path
+from bogglesolver.twl06 import word_list
+from bogglesolver.twl06 import test_word_list
 
 
 class dict_node:
@@ -46,17 +48,14 @@ class e_dict:
     def __init__(self):
         self.dictionary_root = dict_node()
 
-    def read_dictionary(self, filepath):
-        if os.path.exists(filepath):
-            f = open(filepath)
-            lines = f.readlines()
-            for line in lines:
-                self.add_word(line.lower().strip())
-            f.close()
+    def read_dictionary(self, use_test_words=False):
+        words = None
+        if use_test_words:
+            words = test_word_list
         else:
-            print(filepath)
-            print(os.path.abspath(filepath))
-            raise OSError(2, 'No such file or direcotory', str(filepath))
+            words = word_list
+        for word in words:
+            self.add_word(word.lower())
 
     def is_word(self, word):
         retVal = False

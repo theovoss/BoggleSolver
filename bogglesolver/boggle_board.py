@@ -3,6 +3,10 @@
 """Classes that keep track of the board."""
 
 
+from bogglesolver.twl06 import word_list
+import random
+
+
 class boggle:
 
     """
@@ -16,6 +20,23 @@ class boggle:
         self.num_rows = num_rows
         self.boggle_array = [None] * (self.num_columns * self.num_rows)
         self.size = self.num_columns * self.num_rows
+
+    def __str__(self):
+        string = ""
+        for i, letter in enumerate(self.boggle_array):
+            if (i % self.num_columns is 0) and (i is not 0):
+                string += " |\n"
+            string += " | " + letter
+        string += " |\n"
+        return string
+
+    def generate_boggle_board(self):
+        combined_words = ''.join(word_list)
+        array = []
+        for i in range(0, self.size):
+            r = random.randint(0, len(combined_words) - 1)
+            array.append(combined_words[r])
+        self.boggle_array = array
 
     def is_adjacent(self, index_1, index_2):
         retVal = False

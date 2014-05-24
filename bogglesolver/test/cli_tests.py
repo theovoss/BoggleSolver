@@ -26,7 +26,7 @@ class TestCli(unittest.TestCase):
 
     def test_main_solve(self):
         """Verify command line can solve boggle."""
-        known_words = ["knife", "mino", "bein", "fink", "nife", "glop", "polk", "mink", "fino", "jink", "nief", "knop", "ink", "fin", "jin", "nim", "kop", "pol", "fab", "fie", "nie", "kon", "lop", "ab", "ef", "if", "mi", "be", "jo", "ch", "on", "lo", "ae", "ea", "in", "ba", "fa", "no", "ko", "op", "po"]
+        known_words = ['knife', 'mino', 'bein', 'fink', 'nife', 'glop', 'polk', 'mink', 'fino', 'jink', 'nief', 'knop', 'ink', 'fin', 'jin', 'nim', 'kop', 'pol', 'fab', 'fie', 'nie', 'kon', 'lop', 'ab', 'ef', 'if', 'mi', 'be', 'jo', 'ch', 'on', 'lo', 'ae', 'ea', 'in', 'ba', 'fa', 'no', 'ko', 'op', 'po']
         self.assertIs(known_words, main, ['-s', 'a b c d e f g h i j k l m n o p'])
 
 if __name__ == '__main__':

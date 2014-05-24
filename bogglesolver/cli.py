@@ -6,7 +6,6 @@ import argparse
 import sys
 import os
 
-sys.path.insert(0, os.path.join('..'))
 
 from bogglesolver.boggle_board import boggle
 from bogglesolver.load_english_dictionary import e_dict
@@ -23,23 +22,22 @@ def main(args=None):
     column = 4
     row = 4
 
-    # print("length of args is: " + str(len(args)) + " args are: ")
-    # print(args)
-
     parser = argparse.ArgumentParser()
-    parser.add_argument('-s', '--solve', type=str,
-                        help="Add string that represents board. Seperate letters by spaces.")
-    parser.add_argument('-p', '--path', type=str,
-                        help="Dictionary Path.")
+    parser.add_argument('-p', '--play', action='store_true',
+                        help="True if you want to play boggle.")
+    parser.add_argument('-b', '--board', type=str,
+                        help="String representing the Boggle Board. Prints out boards solutions. Currently not implemented.")
 
     args = parser.parse_args(args=args)
 
-    if args.path:
-        dict_path = os.path.join("docs", args.path)
-
-    if args.solve:
-        sb = solve_boggle(args.solve, column, row, dict_path)
-        sb.solve()
+    if args.play:
+        sb = solve_boggle(['a'] * 16, column, row, dict_path)
+        sb.boggle.generate_boggle_board()
+        words = sb.solve()
+        print(sb.boggle)
+        cont = raw_input('Press any button to see the solution.')
+        for word in words:
+            print(word)
 
 
 if __name__ == '__main__':

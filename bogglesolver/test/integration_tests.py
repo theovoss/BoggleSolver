@@ -14,8 +14,8 @@ from bogglesolver.load_english_dictionary import e_dict
 from bogglesolver.boggle_board import boggle
 from bogglesolver.solve_boggle import solve_boggle
 
-f_name = os.path.join("docs", "twl06.txt")
-test_name = os.path.join("docs", "test_words.txt")
+from bogglesolver.twl06 import word_list
+from bogglesolver.twl06 import test_word_list
 
 
 class test_solve_boggle(unittest.TestCase):
@@ -27,7 +27,7 @@ class test_solve_boggle(unittest.TestCase):
         self.columns = 5
         self.rows = 1
         array = ["w", "a", "t", "e", "r"]
-        sb = solve_boggle(array, self.columns, self.rows, test_name)
+        sb = solve_boggle(array, self.columns, self.rows, True)
         sb.e_dict.add_word("wata")
         sb.e_dict.add_word("wate")
         sb.e_dict.add_word("a")
@@ -70,18 +70,12 @@ class test_everything(unittest.TestCase):
     # @unittest.skip("Skipping integration tests.")
     def test_search_speed_vs_raw_read(self):
         d = e_dict()
-        d.read_dictionary(f_name)
+        d.read_dictionary()
 
-        t = open(test_name)
-        test_words = t.readlines()
-        t.close()
+        test_words = test_word_list
 
-        f = open(f_name)
-        p = open(f_name)
-        allwords = f.read()
-        alllines = p.readlines()
-        f.close()
-        p.close()
+        allwords = ' '.join(word_list)
+        alllines = word_list
 
         num_slower_than_read = 0
         num_slower_than_readlines = 0
@@ -125,22 +119,16 @@ class test_everything(unittest.TestCase):
     # @unittest.skip("Skipping integration tests.")
     def test_loads_all_words(self):
         d = e_dict()
-        d.read_dictionary(f_name)
+        d.read_dictionary()
 
-        f = open(f_name)
-
-        for line in f.readlines():
-            d.is_word(line.lower().strip())
-            assert d.is_word(line.lower().strip())
-
-        f.close()
+        for line in word_list:
+            d.is_word(line.lower())
+            assert d.is_word(line.lower())
 
     # @unittest.skip("Skipping integration tests.")
     def test_against_my_sql(self):
         d = e_dict()
-        d.read_dictionary(f_name)
-
-        f = open(f_name)
+        d.read_dictionary()
 
         num_slower_than_sql = 0
 
@@ -148,16 +136,12 @@ class test_everything(unittest.TestCase):
         c = conn.cursor()
         c.execute('''CREATE TABLE my_dict (word text)''')
 
-        for word in f.readlines():
+        for word in word_list:
             c.execute("INSERT INTO my_dict VALUES (?)", [word])
-
-        f.close()
 
         conn.commit()
 
-        t = open(test_name)
-        test_words = t.readlines()
-        t.close()
+        test_words = test_word_list
 
         t1 = time.time()
         t2 = time.time()
