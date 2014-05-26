@@ -27,10 +27,10 @@ setuptools.setup(
 
     packages=setuptools.find_packages(),
 
-    entry_points={'console_scripts': []},
+    entry_points={'console_scripts': [' = bogglesolver.cli:main']},
 
     long_description=(README + '\n' + CHANGES),
-    license='WTFPL',
+    license='LGPL',
     classifiers=[
         'Development Status :: 1 - Planning',
         'Natural Language :: English',
