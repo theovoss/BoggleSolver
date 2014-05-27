@@ -27,7 +27,7 @@ setuptools.setup(
 
     packages=setuptools.find_packages(),
 
-    entry_points={'console_scripts': [' = bogglesolver.cli:main']},
+    entry_points={'console_scripts': ['bogglesolver = bogglesolver.cli:main']},
 
     long_description=(README + '\n' + CHANGES),
     license='LGPL',

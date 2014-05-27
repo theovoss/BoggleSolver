@@ -18,7 +18,6 @@ def main(args=None):
 
     Currently not implemented.
     """
-    dict_path = os.path.join("docs", "twl06.txt")
     column = 4
     row = 4
 
@@ -31,13 +30,14 @@ def main(args=None):
     args = parser.parse_args(args=args)
 
     if args.play:
-        sb = solve_boggle(['a'] * 16, column, row, dict_path)
+        sb = solve_boggle(['a'] * 16, column, row)
         sb.boggle.generate_boggle_board()
         words = sb.solve()
         print(sb.boggle)
-        cont = raw_input('Press any button to see the solution.')
+        cont = input('Press any button to see the solution.')
         for word in words:
             print(word)
+        print(str(len(words)) + " words found.")
 
 
 if __name__ == '__main__':
