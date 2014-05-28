@@ -28,7 +28,7 @@ class solve_boggle:
         for i, letter in enumerate(self.boggle.boggle_array):
             w = self.recurse_search_for_words(i, letter, '', None)
             words += w
-        return words
+        return sorted(set(words))
 
     def recurse_search_for_words(self, a_index, letter, word, indexes_searched=None):
         if indexes_searched is None:
@@ -39,6 +39,6 @@ class solve_boggle:
             # need to read more into parameter scope in recursion: http://stackoverflow.com/questions/14084666/python-recursive-function-variable-scope
             if self.e_dict.is_still_potentially_valid(word + letter):
                 retVal += self.recurse_search_for_words(index, self.boggle.boggle_array[index], word + letter, searched)
-        if self.e_dict.is_word(word + letter):
+        if self.e_dict.is_word(word + letter) and (word + letter) not in retVal:
             retVal.append(word + letter)
         return retVal
