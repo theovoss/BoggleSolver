@@ -22,7 +22,7 @@ class test_boggle_letters(unittest.TestCase):
         b = boggle(4, 4)
         array = "a b c d e f g h i j k l m n o p".split(' ')
         b.set_array(array)
-        s = print(b)
+        print(b)
         assert False
 
     def test_insert_index(self):
