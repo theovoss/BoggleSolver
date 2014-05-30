@@ -6,6 +6,7 @@
 import unittest
 import os
 import subprocess
+import re
 
 from bogglesolver.load_english_dictionary import e_dict
 from bogglesolver.boggle_board import boggle
@@ -21,9 +22,9 @@ class test_boggle_letters(unittest.TestCase):
     def test_print_board(self):
         b = boggle(4, 4)
         array = "a b c d e f g h i j k l m n o p".split(' ')
+        expected_string = " | a | b | c | d |\n | e | f | g | h |\n | i | j | k | l |\n | m | n | o | p |\n"
         b.set_array(array)
-        print(b)
-        assert False
+        assert b.__str__() == expected_string
 
     def test_insert_index(self):
         b = boggle(4, 4)
@@ -52,6 +53,14 @@ class test_boggle_letters(unittest.TestCase):
 class test_boggle_adjacent(unittest.TestCase):
 
     """Unit tests for testing which indices are adjacent in different board configurations."""
+
+    def test_boggle_board_generate(self):
+        b = boggle(4, 4)
+        assert False is b.is_full()
+        b.generate_boggle_board()
+        assert b.is_full()
+        for letter in b.boggle_array:
+            assert re.search('[a-z]', letter) is not None
 
     def test_four_by_four(self):
         b = boggle(4, 4)
