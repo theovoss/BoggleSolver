@@ -24,7 +24,7 @@ class test_boggle_letters(unittest.TestCase):
         array = "a b c d e f g h i j k l m n o p".split(' ')
         expected_string = " | a | b | c | d |\n | e | f | g | h |\n | i | j | k | l |\n | m | n | o | p |\n"
         b.set_array(array)
-        assert b.__str__() == expected_string
+        assert str(b) == expected_string
 
     def test_insert_index(self):
         b = boggle(4, 4)
