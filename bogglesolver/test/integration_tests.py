@@ -31,11 +31,27 @@ class test_solve_boggle(unittest.TestCase):
         sb.e_dict.add_word("wata")
         sb.e_dict.add_word("wate")
         sb.e_dict.add_word("a")
+        sb.e_dict.add_word("tear")
+        sb.e_dict.add_word("tea")
+        sb.e_dict.add_word("eat")
         solved = sb.solve()
         assert "water" in solved
         assert "a" in solved
         assert "wata" not in solved
         assert "wate" in solved
+        assert "eat" not in solved
+        assert "tear" not in solved
+        assert "tea" not in solved
+
+        solved = sb.solve(False)
+        print(solved)
+        assert "water" in solved
+        assert "a" in solved
+        assert "wata" not in solved
+        assert "wate" in solved
+        assert "eat" in solved
+        assert "tea" in solved
+        assert "tear" in solved
 
 
 class test_everything(unittest.TestCase):
@@ -46,6 +62,11 @@ class test_everything(unittest.TestCase):
     These tests all take a somewhat significant amount of time, usually due to loading in the dictionary.
     Could speed these up a lot if I store that dictionary globally.
     """
+
+    def test_generate_board(self):
+        b = boggle(4, 4)
+        b.generate_boggle_board()
+        assert b.is_full()
 
     # @unittest.skip("Skipping integration tests.")
     def test_solves_boggle(self):

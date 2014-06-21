@@ -23,11 +23,15 @@ class boggle:
 
     def __str__(self):
         string = ""
-        for i, letter in enumerate(self.boggle_array):
-            if (i % self.num_columns is 0) and (i is not 0):
-                string += " |\n"
-            string += " | " + letter
-        string += " |\n"
+        if self.is_full():
+            print(self.boggle_array)
+            for i, letter in enumerate(self.boggle_array):
+                print(letter)
+                if (i % self.num_columns is 0) and (i is not 0):
+                    string += " |\n"
+                string += " | " + letter
+        
+            string += " |\n"
         return string
 
     def generate_boggle_board(self):
@@ -53,12 +57,14 @@ class boggle:
 
         return retVal
 
-    def get_adjacent(self, index, ignore=None):
+    def get_adjacent(self, index, ignore=None, normal_adj=True):
+        print("Normal_adj is: %s" % normal_adj)
         if ignore is None:
             ignore = []
         retVal = []
         for i in range(0, self.num_columns * self.num_rows):
-            if self.is_adjacent(index, i) and (i is not index) and (i not in ignore):
+            if (not normal_adj or self.is_adjacent(index, i)) and \
+               (i is not index) and (i not in ignore):
                 retVal.append(i)
         return retVal
 

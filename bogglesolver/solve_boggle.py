@@ -23,22 +23,22 @@ class solve_boggle:
         self.boggle = boggle(columns, rows)
         self.boggle.set_array(boggle_array)
 
-    def solve(self):
+    def solve(self, normal_adj=True):
         words = []
         for i, letter in enumerate(self.boggle.boggle_array):
-            w = self.recurse_search_for_words(i, letter, '', None)
+            w = self.recurse_search_for_words(i, letter, '', None, normal_adj=normal_adj)
             words += w
         return sorted(set(words))
 
-    def recurse_search_for_words(self, a_index, letter, word, indexes_searched=None):
+    def recurse_search_for_words(self, a_index, letter, word, indexes_searched=None, normal_adj=True):
         if indexes_searched is None:
             indexes_searched = []
         retVal = []
-        for index in self.boggle.get_adjacent(a_index, indexes_searched):
+        for index in self.boggle.get_adjacent(a_index, indexes_searched, normal_adj=normal_adj):
             searched = indexes_searched + [index]
             # need to read more into parameter scope in recursion: http://stackoverflow.com/questions/14084666/python-recursive-function-variable-scope
             if self.e_dict.is_still_potentially_valid(word + letter):
-                retVal += self.recurse_search_for_words(index, self.boggle.boggle_array[index], word + letter, searched)
+                retVal += self.recurse_search_for_words(index, self.boggle.boggle_array[index], word + letter, searched, normal_adj=normal_adj)
         if self.e_dict.is_word(word + letter) and (word + letter) not in retVal:
             retVal.append(word + letter)
         return retVal

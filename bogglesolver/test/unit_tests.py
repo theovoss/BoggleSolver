@@ -18,12 +18,11 @@ class test_boggle_letters(unittest.TestCase):
 
     """Unit tests for adding letters to the boggle board."""
 
-    def test_print_board(self):
+    def test_str(self):
         b = boggle(4, 4)
-        array = "a b c d e f g h i j k l m n o p".split(' ')
-        b.set_array(array)
-        s = print(b)
-        assert False
+        assert str(b) == ""
+        b.boggle_array = ['A'] * 4 + ['B'] * 4 + ['C'] * 4 + ['D'] * 4
+        assert str(b) == " | A | A | A | A |\n | B | B | B | B |\n | C | C | C | C |\n | D | D | D | D |\n"
 
     def test_insert_index(self):
         b = boggle(4, 4)
@@ -126,6 +125,13 @@ class test_boggle_adjacent(unittest.TestCase):
         for index in t:
             assert index in adj
         assert len(adj) is len(t)
+
+        # test unnormal adjacent
+        adj = b.get_adjacent(0, normal_adj=False)
+        for index in range(1, len(b.boggle_array)-2):
+            assert index in adj
+        assert len(adj) == len(b.boggle_array) - 1
+
 
     def test_get_adjacent44(self):
         b = boggle(4, 4)
