@@ -7,7 +7,7 @@ from bogglesolver.twl06 import word_list
 import random
 
 
-class BOGGLE:
+class Boggle:
 
     """
     The boggle board.

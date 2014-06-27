@@ -11,7 +11,7 @@ import sqlite3
 import os
 
 from bogglesolver.load_english_dictionary import e_dict
-from bogglesolver.boggle_board import boggle
+from bogglesolver.boggle_board import Boggle
 from bogglesolver.solve_boggle import solve_boggle
 
 from bogglesolver.twl06 import word_list
@@ -64,12 +64,12 @@ class test_everything(unittest.TestCase):
     """
 
     def test_generate_board(self):
-        b = boggle(4, 4)
+        b = Boggle(4, 4)
         b.generate_boggle_board()
         assert b.is_full()
 
     # @unittest.skip("Skipping integration tests.")
-    def test_solves_boggle(self):
+    def test_solves_Boggle(self):
         self.columns = 4
         self.rows = 4
         array = "a b c d e f g h i j k l m n o p".split()

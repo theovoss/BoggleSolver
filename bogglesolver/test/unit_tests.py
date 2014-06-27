@@ -8,7 +8,7 @@ import os
 import subprocess
 
 from bogglesolver.load_english_dictionary import e_dict
-from bogglesolver.boggle_board import boggle
+from bogglesolver.boggle_board import Boggle
 from bogglesolver.solve_boggle import solve_boggle
 
 from bogglesolver.twl06 import test_word_list
@@ -19,13 +19,13 @@ class test_boggle_letters(unittest.TestCase):
     """Unit tests for adding letters to the boggle board."""
 
     def test_str(self):
-        b = boggle(4, 4)
+        b = Boggle(4, 4)
         assert str(b) == ""
         b.boggle_array = ['A'] * 4 + ['B'] * 4 + ['C'] * 4 + ['D'] * 4
         assert str(b) == " | A | A | A | A |\n | B | B | B | B |\n | C | C | C | C |\n | D | D | D | D |\n"
 
     def test_insert_index(self):
-        b = boggle(4, 4)
+        b = Boggle(4, 4)
         b.insert('A', 0)
         assert b.boggle_array[0] is 'A'
 
@@ -33,7 +33,7 @@ class test_boggle_letters(unittest.TestCase):
         assert b.boggle_array[8] is 'B'
 
     def test_boggle_is_full(self):
-        b = boggle(4, 4)
+        b = Boggle(4, 4)
         assert b.is_full() is False
 
         for i in range(0, 16):
@@ -41,7 +41,7 @@ class test_boggle_letters(unittest.TestCase):
         assert b.is_full()
 
     def test_boggle_set_array(self):
-        b = boggle(4, 4)
+        b = Boggle(4, 4)
         assert b.is_full() is False
         array = ["a"] * 16
         b.set_array(array)
@@ -53,7 +53,7 @@ class test_boggle_adjacent(unittest.TestCase):
     """Unit tests for testing which indices are adjacent in different board configurations."""
 
     def test_four_by_four(self):
-        b = boggle(4, 4)
+        b = Boggle(4, 4)
         assert b.is_adjacent(0, 1)
         assert b.is_adjacent(1, 2)
         assert b.is_adjacent(2, 3)
@@ -71,7 +71,7 @@ class test_boggle_adjacent(unittest.TestCase):
         assert b.is_adjacent(1, 4)
 
     def test_five_by_three(self):
-        b = boggle(5, 3)
+        b = Boggle(5, 3)
         assert b.is_adjacent(0, 1)
         assert b.is_adjacent(6, 7)
         assert b.is_adjacent(12, 13)
@@ -83,7 +83,7 @@ class test_boggle_adjacent(unittest.TestCase):
         assert b.is_adjacent(4, 8)
 
     def test_get_adjacent53(self):
-        b = boggle(5, 3)
+        b = Boggle(5, 3)
         # middle
         adj = b.get_adjacent(6)
         t = [0, 1, 2, 5, 7, 10, 11, 12]
@@ -134,7 +134,7 @@ class test_boggle_adjacent(unittest.TestCase):
 
 
     def test_get_adjacent44(self):
-        b = boggle(4, 4)
+        b = Boggle(4, 4)
 
         # middle
         adj = b.get_adjacent(6)

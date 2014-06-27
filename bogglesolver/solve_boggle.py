@@ -3,7 +3,7 @@
 """Class to solve the boggle boggle_board."""
 
 
-from bogglesolver.boggle_board import boggle
+from bogglesolver.boggle_board import Boggle
 from bogglesolver.load_english_dictionary import e_dict
 
 
@@ -20,7 +20,7 @@ class solve_boggle:
         self.use_test_words = use_test_words
         self.e_dict = e_dict()
         self.e_dict.read_dictionary(self.use_test_words)
-        self.boggle = boggle(columns, rows)
+        self.boggle = Boggle(columns, rows)
         self.boggle.set_array(boggle_array)
 
     def solve(self, normal_adj=True):
