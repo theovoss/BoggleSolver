@@ -3,13 +3,8 @@
 """Command-line interface for boggle solver."""
 
 import argparse
-import sys
-import os
 import time
 
-
-from bogglesolver.boggle_board import boggle
-from bogglesolver.load_english_dictionary import e_dict
 from bogglesolver.solve_boggle import solve_boggle
 
 
@@ -29,7 +24,9 @@ def main(args=None):
     parser.add_argument('-p', '--play', action='store_true',
                         help="True if you want to play boggle.")
     parser.add_argument('-b', '--board', type=str,
-                        help="String representing the Boggle Board. Prints out boards solutions. Currently not implemented.")
+                        help="String representing the Boggle Board.\
+                              Prints out boards solutions.\
+                              Currently not implemented.")
     parser.add_argument('-t', '--time', type=int,
                         help="int game time in seconds.")
     parser.add_argument('-l', '--length', type=int,
@@ -40,8 +37,8 @@ def main(args=None):
     args = parser.parse_args(args=args)
 
     if args.words:
-        sb = solve_boggle(args.words)
-        print(sb.solve(False))
+        solver = solve_boggle(args.words)
+        print(solver.solve(False))
 
     if args.time:
         game_time = args.time
@@ -50,18 +47,17 @@ def main(args=None):
         min_length = args.length
 
     if args.play:
-        sb = solve_boggle(['a'] * 16, column, row)
-        sb.boggle.generate_boggle_board()
-        words = sb.solve()
-        print(sb.boggle)
+        solver = solve_boggle(['a'] * 16, column, row)
+        solver.boggle.generate_boggle_board()
+        words = solver.solve()
+        print(solver.boggle)
         print("Play Boggle!!")
         time.sleep(game_time)
         # cont = input('Press enter to see the solution.')
         i = 0
-        for word in words:
+        for i, word in enumerate(words):
             if len(word) >= min_length:
                 print(word)
-                i += 1
         print(str(i) + " words found.")
         exit()
 
