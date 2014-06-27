@@ -128,10 +128,9 @@ class test_boggle_adjacent(unittest.TestCase):
 
         # test unnormal adjacent
         adj = b.get_adjacent(0, normal_adj=False)
-        for index in range(1, len(b.boggle_array)-2):
+        for index in range(1, len(b.boggle_array) - 2):
             assert index in adj
         assert len(adj) == len(b.boggle_array) - 1
-
 
     def test_get_adjacent44(self):
         b = Boggle(4, 4)

@@ -35,9 +35,7 @@ class Boggle:
         return string
 
     def generate_boggle_board(self):
-        """
-        Generate a boggle board by randomly selecting letters from valid words.
-        """
+        """Generate a boggle board by randomly selecting letters from valid words."""
         combined_words = ''.join(word_list)
         array = []
         for i in range(0, self.size):
@@ -116,7 +114,7 @@ class Boggle:
 
     def set_array(self, array):
         """
-        Sets the boggle array with the one provided.
+        Set the boggle array with the one provided.
 
         :param list array: list to set the boggle array to.
         """
