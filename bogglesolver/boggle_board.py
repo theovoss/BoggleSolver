@@ -38,11 +38,9 @@ class Boggle:
         """Generate a boggle board by randomly selecting letters from valid words."""
         combined_words = ''.join(WORD_LIST)
         array = []
-        i = 0
         for i in range(0, self.size):
             random_number = random.randint(0, len(combined_words) - 1)
-            array.append(combined_words[random_number])
-        self.boggle_array = array
+            self.boggle_array[i] = combined_words[random_number]
 
     def is_adjacent(self, index_1, index_2):
         """
