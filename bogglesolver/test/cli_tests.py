@@ -3,10 +3,7 @@
 """Test for the command line interface."""
 
 
-import sys
 import unittest
-import os.path
-import os
 
 from bogglesolver.cli import main
 

@@ -3,7 +3,7 @@
 """Classes that keep track of the board."""
 
 
-from bogglesolver.twl06 import word_list
+from bogglesolver.twl06 import WORD_LIST
 import random
 
 
@@ -36,9 +36,9 @@ class Boggle:
 
     def generate_boggle_board(self):
         """Generate a boggle board by randomly selecting letters from valid words."""
-        combined_words = ''.join(word_list)
+        combined_words = ''.join(WORD_LIST)
         array = []
-        for i in range(0, self.size):
+        while not self.is_full():
             random_number = random.randint(0, len(combined_words) - 1)
             array.append(combined_words[random_number])
         self.boggle_array = array

@@ -5,7 +5,7 @@
 import argparse
 import time
 
-from bogglesolver.solve_boggle import solve_boggle
+from bogglesolver.solve_boggle import SolveBoggle
 
 
 def main(args=None):
@@ -37,7 +37,7 @@ def main(args=None):
     args = parser.parse_args(args=args)
 
     if args.words:
-        solver = solve_boggle(args.words)
+        solver = SolveBoggle(args.words, column, row)
         print(solver.solve(False))
 
     if args.time:
@@ -47,7 +47,7 @@ def main(args=None):
         min_length = args.length
 
     if args.play:
-        solver = solve_boggle(['a'] * 16, column, row)
+        solver = SolveBoggle(['a'] * 16, column, row)
         solver.boggle.generate_boggle_board()
         words = solver.solve()
         print(solver.boggle)
