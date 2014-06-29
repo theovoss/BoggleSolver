@@ -21,7 +21,10 @@ class SolveBoggle:
         self.edict = Edict()
         self.edict.read_dictionary(self.use_test_words)
         self.boggle = Boggle(columns, rows)
-        self.boggle.set_array(boggle_array)
+        if boggle_array:
+            self.boggle.set_array(boggle_array)
+        else:
+            self.boggle.generate_boggle_board()
 
     def solve(self, normal_adj=True):
         """
