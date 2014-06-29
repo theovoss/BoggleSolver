@@ -24,9 +24,7 @@ class Boggle:
     def __str__(self):
         string = ""
         if self.is_full():
-            print(self.boggle_array)
             for i, letter in enumerate(self.boggle_array):
-                print(letter)
                 if (i % self.num_columns is 0) and (i is not 0):
                     string += " |\n"
                 string += " | " + letter
@@ -80,7 +78,6 @@ class Boggle:
                or ignore it.
         :returns: True if adjacent. False otherwise.
         """
-        print("Normal_adj is: %s" % normal_adj)
         if ignore is None:
             ignore = []
         ret_val = []
