@@ -45,7 +45,6 @@ class test_solve_boggle(unittest.TestCase):
         assert "tea" not in solved
 
         solved = solve_game.solve(False)
-        print(solved)
         assert "water" in solved
         assert "a" in solved
         assert "wata" not in solved
@@ -53,6 +52,10 @@ class test_solve_boggle(unittest.TestCase):
         assert "eat" in solved
         assert "tea" in solved
         assert "tear" in solved
+
+        solve_game = SolveBoggle(None, columns, rows, True)
+        assert solve_game.boggle.is_full()
+        assert solve_game.boggle.size == columns * rows
 
 
 class test_everything(unittest.TestCase):
