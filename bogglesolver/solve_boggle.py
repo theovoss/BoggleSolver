@@ -26,7 +26,7 @@ class SolveBoggle:
         else:
             self.boggle.generate_boggle_board()
 
-    def solve(self, normal_adj=True):
+    def solve(self, ignore_indexes=None, normal_adj=True):
         """
         Solve the boggle board, or get all words for scrabble.
 
@@ -36,7 +36,8 @@ class SolveBoggle:
         """
         words = []
         for i, letter in enumerate(self.boggle.boggle_array):
-            words += self.recurse_search_for_words(i, letter, '', None,
+            words += self.recurse_search_for_words(i, letter, '', 
+                                                   indexes_searched=ignore_indexes,
                                                    normal_adj=normal_adj)
         return sorted(set(words))
 
