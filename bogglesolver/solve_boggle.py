@@ -36,7 +36,7 @@ class SolveBoggle:
         """
         words = []
         for i, letter in enumerate(self.boggle.boggle_array):
-            words += self.recurse_search_for_words(i, letter, '', 
+            words += self.recurse_search_for_words(i, letter, '',
                                                    indexes_searched=ignore_indexes,
                                                    normal_adj=normal_adj)
         return sorted(set(words))

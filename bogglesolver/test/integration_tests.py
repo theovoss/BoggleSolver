@@ -44,7 +44,7 @@ class test_solve_boggle(unittest.TestCase):
         assert "tear" not in solved
         assert "tea" not in solved
 
-        solved = solve_game.solve(False)
+        solved = solve_game.solve(normal_adj=False)
         assert "water" in solved
         assert "a" in solved
         assert "wata" not in solved
