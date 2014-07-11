@@ -36,12 +36,12 @@ class SolveBoggle:
         """
         words = []
         for i, letter in enumerate(self.boggle.boggle_array):
-            words += self.recurse_search_for_words(i, letter, '',
+            words += self.recurse_search_for_words(i, letter, '', self.edict.dictionary_root,
                                                    indexes_searched=ignore_indexes,
                                                    normal_adj=normal_adj)
         return sorted(set(words))
 
-    def recurse_search_for_words(self, a_index, letter, word,
+    def recurse_search_for_words(self, a_index, letter, word, node,
                                  indexes_searched=None, normal_adj=True):
         """
         Recursively search boggle board for words.
@@ -61,8 +61,8 @@ class SolveBoggle:
         for index in self.boggle.get_adjacent(a_index, indexes_searched,
                                               normal_adj=normal_adj):
             searched = indexes_searched + [index]
-            if self.edict.is_still_potentially_valid(word + letter):
-                ret_val += self.recurse_search_for_words(index, self.boggle.boggle_array[index], word + letter, searched, normal_adj=normal_adj)
+            if self.edict.is_valid_path(node, letter):
+                ret_val += self.recurse_search_for_words(index, self.boggle.boggle_array[index], word + letter, node.letters[letter], indexes_searched=searched, normal_adj=normal_adj)
         if self.edict.is_word(word + letter) and (word + letter) not in ret_val:
             ret_val.append(word + letter)
         return ret_val

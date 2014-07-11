@@ -234,5 +234,12 @@ class test_dictionary(unittest.TestCase):
             assert word.lower() in words
         assert len(words) is len(dict_words)
 
+    def test_is_valid_path(self):
+        """Test valid paths in the dictionary."""
+        my_dict = Edict()
+        my_dict.read_dictionary(True)
+        assert my_dict.is_valid_path(my_dict.dictionary_root, 'o')
+        assert not my_dict.is_valid_path(my_dict.dictionary_root.letters['o'], 'b')
+
 if __name__ == '__main__':
     unittest.main()

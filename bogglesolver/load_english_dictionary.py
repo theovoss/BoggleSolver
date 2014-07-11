@@ -142,3 +142,13 @@ class Edict:
         """
         node = self.get_node(word)
         return node is not None
+
+    def is_valid_path(self, node, letter):
+        """
+        Determine if the letter provided is a valid path from the provided node.
+
+        :param _dictnode node: node in the Edict.
+        :param str letter: next letter.
+        :returns: True if the node has a path for the given letter, False Otherwise
+        """
+        return letter in node.letters.keys()
