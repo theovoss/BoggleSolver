@@ -7,6 +7,7 @@ import unittest
 
 from bogglesolver.load_english_dictionary import Edict
 from bogglesolver.boggle_board import Boggle
+from bogglesolver.solve_boggle import SolveBoggle
 
 from bogglesolver.twl06 import TEST_WORD_LIST
 
@@ -240,6 +241,36 @@ class test_dictionary(unittest.TestCase):
         my_dict.read_dictionary(True)
         assert my_dict.is_valid_path(my_dict.dictionary_root, 'o')
         assert not my_dict.is_valid_path(my_dict.dictionary_root.letters['o'], 'b')
+
+
+class test_SolveBoggle(unittest.TestCase):
+
+    """Unit tests for solve boggle."""
+
+    def test_set_board(self):
+        """Test set_board."""
+        columns = 10
+        rows = 1
+        array = ["w", "a", "t", "e", "r"]
+        array2 = ["w", "a", "t", "e", "r", "w", "a", "t", "e", "r"]
+        solve_game = SolveBoggle(True)
+
+        assert not solve_game.boggle.is_full()
+        assert solve_game.boggle.num_rows != rows
+        assert solve_game.boggle.num_columns != columns
+
+        solve_game.set_board(columns, rows, array)
+
+        assert not solve_game.boggle.is_full()
+        assert solve_game.boggle.num_rows == rows
+        assert solve_game.boggle.num_columns == columns
+
+        solve_game.set_board(columns, rows, array2)
+
+        assert solve_game.boggle.is_full()
+        assert solve_game.boggle.num_rows == rows
+        assert solve_game.boggle.num_columns == columns
+
 
 if __name__ == '__main__':
     unittest.main()

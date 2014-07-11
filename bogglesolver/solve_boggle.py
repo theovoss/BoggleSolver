@@ -16,13 +16,27 @@ class SolveBoggle:
     Then it searches the board for all valid words.
     """
 
-    def __init__(self, boggle_array, columns, rows, use_test_words=False):
+    def __init__(self, use_test_words=False):
         self.use_test_words = use_test_words
         self.edict = Edict()
         self.edict.read_dictionary(self.use_test_words)
-        self.boggle = Boggle(columns, rows)
-        if boggle_array:
-            self.boggle.set_array(boggle_array)
+        self.boggle = Boggle()
+
+    def set_board(self, columns, rows, boggle_list=None):
+        """
+        Set the board for the game.
+
+        :param int columns: number of columns for the board.
+        :param int rows: number of rows for the board.
+        :param boggle_list: list of all the letters for the board (optional).
+        :type boggle_list: list or None
+        """
+        self.boggle.num_columns = columns
+        self.boggle.num_rows = rows
+        self.boggle.size = columns * rows
+        print("Size is: %s, columns are: %s, rows are: %s" % (self.boggle.size, self.boggle.num_columns, self.boggle.num_rows))
+        if boggle_list is not None:
+            self.boggle.set_array(boggle_list)
         else:
             self.boggle.generate_boggle_board()
 
@@ -34,6 +48,7 @@ class SolveBoggle:
                                 False to solve for scrabble.
         :returns: sorted list of all words found.
         """
+        assert self.boggle.is_full(), "Boggle board has not been set."
         words = []
         for i, letter in enumerate(self.boggle.boggle_array):
             words += self.recurse_search_for_words(i, letter, '', self.edict.dictionary_root,
