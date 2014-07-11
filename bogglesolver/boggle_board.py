@@ -35,10 +35,11 @@ class Boggle:
     def generate_boggle_board(self):
         """Generate a boggle board by randomly selecting letters from valid words."""
         combined_words = ''.join(WORD_LIST)
-        array = []
+        self.boggle_array = []
+        print("Generating boggle board of size: %s" % self.size)
         for i in range(0, self.size):
             random_number = random.randint(0, len(combined_words) - 1)
-            self.boggle_array[i] = combined_words[random_number]
+            self.boggle_array.append(combined_words[random_number])
 
     def is_adjacent(self, index_1, index_2):
         """
@@ -103,10 +104,16 @@ class Boggle:
 
         :returns: True if full. False otherwise.
         """
-        for i in range(0, self.size):
-            if self.boggle_array[i] is None:
-                return False
-        return True
+        ret_val = True
+        if len(self.boggle_array) == self.size:
+            for i in range(0, self.size):
+                if self.boggle_array[i] is None:
+                    ret_val = False
+                    print("Found element of array that was None.")
+        else:
+            print("Boggle array len: %s does not equal size: %s." % (len(self.boggle_array), self.size))
+            ret_val = False
+        return ret_val
 
     def set_array(self, array):
         """
