@@ -38,12 +38,16 @@ class test_solve_boggle(unittest.TestCase):
         solve_game.edict.add_word("eat")
         solved = solve_game.solve()
         assert "water" in solved
-        assert "a" in solved
+        assert "a" not in solved
         assert "wata" not in solved
         assert "wate" in solved
         assert "eat" not in solved
         assert "tear" not in solved
         assert "tea" not in solved
+
+        solve_game.min_word_len = 0
+        solved = solve_game.solve()
+        assert "a" in solved
 
         solved = solve_game.solve(normal_adj=False)
         assert "water" in solved
@@ -93,12 +97,23 @@ class test_everything(unittest.TestCase):
         for word in known_words:
             solve_game.edict.add_word(word)
 
+        solve_game.min_word_len = 5
         solved = solve_game.solve()
 
         for word in known_words:
-            if word not in solved:
-                print(word)
-                assert False
+            if len(word) >= solve_game.min_word_len:
+                assert word in solved
+            else:
+                assert word not in solved
+
+        solve_game.min_word_len = 0
+        solved = solve_game.solve()
+
+        for word in known_words:
+            if len(word) >= solve_game.min_word_len:
+                assert word in solved
+            else:
+                assert word not in solved
 
     # @unittest.skip("Skipping integration tests.")
     def test_search_speed_vs_raw_read(self):

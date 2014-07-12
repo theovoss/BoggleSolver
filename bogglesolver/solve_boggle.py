@@ -21,6 +21,7 @@ class SolveBoggle:
         self.edict = Edict()
         self.edict.read_dictionary(self.use_test_words)
         self.boggle = Boggle()
+        self.min_word_len = 3
 
     def set_board(self, columns, rows, boggle_list=None):
         """
@@ -78,6 +79,6 @@ class SolveBoggle:
             searched = indexes_searched + [index]
             if self.edict.is_valid_path(node, letter):
                 ret_val += self.recurse_search_for_words(index, self.boggle.boggle_array[index], word + letter, node.letters[letter], indexes_searched=searched, normal_adj=normal_adj)
-        if self.edict.is_word(word + letter) and (word + letter) not in ret_val:
+        if self.edict.is_word(word + letter) and ((word + letter) not in ret_val) and (len(word + letter) >= self.min_word_len):
             ret_val.append(word + letter)
         return ret_val
