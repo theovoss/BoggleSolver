@@ -52,9 +52,10 @@ class SolveBoggle:
         assert self.boggle.is_full(), "Boggle board has not been set."
         words = []
         for i, letter in enumerate(self.boggle.boggle_array):
-			if i not in ignore_indexes:
-				words += self.recurse_search_for_words(i, letter, '', self.edict.dictionary_root,
-													   indexes_searched=ignore_indexes,
+            if i not in ignore_indexes:
+                ignored = ignore_indexes + [i]
+                words += self.recurse_search_for_words(i, letter, '', self.edict.dictionary_root,
+                                                       indexes_searched=ignored,
                                                        normal_adj=normal_adj)
         return sorted(set(words))
 
