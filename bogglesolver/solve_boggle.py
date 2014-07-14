@@ -49,6 +49,8 @@ class SolveBoggle:
                                 False to solve for scrabble.
         :returns: sorted list of all words found.
         """
+        if ignore_indexes is None:
+            ignore_indexes = []
         assert self.boggle.is_full(), "Boggle board has not been set."
         words = []
         for i, letter in enumerate(self.boggle.boggle_array):
@@ -60,7 +62,7 @@ class SolveBoggle:
         return sorted(set(words))
 
     def recurse_search_for_words(self, a_index, letter, word, node,
-                                 indexes_searched=None, normal_adj=True):
+                                 indexes_searched, normal_adj=True):
         """
         Recursively search boggle board for words.
 
@@ -73,8 +75,6 @@ class SolveBoggle:
         :type indexes_searched: None or list.
         :param bool normal_adj: whether to solve for boggle or scrabble.
         """
-        if indexes_searched is None:
-            indexes_searched = []
         ret_val = []
         for index in self.boggle.get_adjacent(a_index, indexes_searched,
                                               normal_adj=normal_adj):
