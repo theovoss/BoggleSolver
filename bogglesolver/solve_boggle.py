@@ -76,11 +76,11 @@ class SolveBoggle:
         :param bool normal_adj: whether to solve for boggle or scrabble.
         """
         ret_val = []
-        for index in self.boggle.get_adjacent(a_index, indexes_searched,
-                                              normal_adj=normal_adj):
-            searched = indexes_searched + [index]
-            if self.edict.is_valid_path(node, letter):
+        if self.edict.is_valid_path(node, letter):
+            for index in self.boggle.get_adjacent(a_index, indexes_searched,
+                                                  normal_adj=normal_adj):
+                searched = indexes_searched + [index]
                 ret_val += self.recurse_search_for_words(index, self.boggle.boggle_array[index], word + letter, node.letters[letter], indexes_searched=searched, normal_adj=normal_adj)
-        if self.edict.is_word(word + letter) and ((word + letter) not in ret_val) and (len(word + letter) >= self.min_word_len):
-            ret_val.append(word + letter)
+            if node.letters[letter].is_word and ((word + letter) not in ret_val) and (len(word + letter) >= self.min_word_len):
+                ret_val.append(word + letter)
         return ret_val
