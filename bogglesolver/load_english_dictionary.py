@@ -80,11 +80,8 @@ class Edict:
         :param str word: word to look for in the dictionary.
         :returns: True if word is in dictionary. Otherwise False.
         """
-        ret_val = False
         node = self.get_node(word)
-        if node is not None:
-            ret_val = node.is_word
-        return ret_val
+        return node.is_word if node else False
 
     def add_word(self, word):
         """
