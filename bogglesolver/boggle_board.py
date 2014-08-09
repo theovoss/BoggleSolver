@@ -81,12 +81,48 @@ class Boggle:
         """
         if ignore is None:
             ignore = []
-        ret_val = []
-        for i in range(0, self.num_columns * self.num_rows):
-            if (not normal_adj or self.is_adjacent(index, i)) and \
-               (i is not index) and (i not in ignore):
-                ret_val.append(i)
-        return ret_val
+
+        # if not normal adjacent
+        if normal_adj:
+            row = index // self.num_columns
+            column = index % self.num_columns
+
+            # calculate the 8 indexes that surround this index
+
+            # index directly to the left:
+            if column != 0:
+                if index - 1 not in ignore:
+                    yield index - 1
+                # diagonal up and left
+                if row != 0 and index - self.num_columns - 1 not in ignore:
+                    yield index - self.num_columns - 1
+                # diagonal down and left
+                if row != self.num_rows - 1 and index + self.num_columns - 1 not in ignore:
+                    yield index + self.num_columns - 1
+
+            # index directly to the right:
+            if column != self.num_columns - 1:
+                if index + 1 not in ignore:
+                    yield index + 1
+                # index to the top right
+                if row != 0 and index - self.num_columns + 1 not in ignore:
+                    yield index - self.num_columns + 1
+                # index to the bottom right
+                if row != self.num_rows - 1 and index + self.num_columns + 1 not in ignore:
+                    yield index + self.num_columns + 1
+
+            # directly above
+            if row != 0 and index - self.num_columns not in ignore:
+                yield index - self.num_columns
+
+            # directly below
+            if row != self.num_rows - 1 and index + self.num_columns not in ignore:
+                yield index + self.num_columns
+
+        else:
+            for i in range(0, self.size):
+                if i not in ignore and i is not index:
+                    yield i
 
     def insert(self, character, index):
         """
