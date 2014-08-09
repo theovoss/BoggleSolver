@@ -89,96 +89,104 @@ class test_boggle_adjacent(unittest.TestCase):
     def test_get_adjacent53(self):
         """Test a 5x3 board adjacency."""
         game = Boggle(5, 3)
+        i = 0
+
         # middle
         adj = game.get_adjacent(6)
         expected = [0, 1, 2, 5, 7, 10, 11, 12]
-        for index in expected:
-            assert index in adj
-        assert len(adj) is len(expected)
+        for i, index in enumerate(adj):
+            assert index in expected
+        assert i == len(expected) - 1
 
         # middle - except some already visited
         adj = game.get_adjacent(6, [0, 1, 7, 11])
         expected = [2, 5, 10, 12]
-        for index in expected:
-            assert index in adj
-        assert len(adj) is len(expected)
+        for i, index in enumerate(adj):
+            assert index in expected
+        assert i == len(expected) - 1
 
         # side
         adj = game.get_adjacent(9)
         expected = [3, 4, 8, 13, 14]
-        for index in expected:
-            assert index in adj
-        assert len(adj) is len(expected)
+        for i, index in enumerate(adj):
+            assert index in expected
+        assert i == len(expected) - 1
 
         # side - except some already visited
         adj = game.get_adjacent(9, [4, 13, 1])
         expected = [3, 8, 14]
-        for index in expected:
-            assert index in adj
-        assert len(adj) is len(expected)
+        for i, index in enumerate(adj):
+            assert index in expected
+        assert i == len(expected) - 1
 
         # corner
         adj = game.get_adjacent(0)
         expected = [1, 5, 6]
-        for index in expected:
-            assert index in adj
-        assert len(adj) is len(expected)
+        for i, index in enumerate(adj):
+            assert index in expected
+        assert i == len(expected) - 1
 
         # corner - except some already visited
         adj = game.get_adjacent(0, [5, 4, 9])
         expected = [1, 6]
-        for index in expected:
-            assert index in adj
-        assert len(adj) is len(expected)
+        for i, index in enumerate(adj):
+            assert index in expected
+        assert i == len(expected) - 1
 
         # test unnormal adjacent
         adj = game.get_adjacent(0, normal_adj=False)
-        for index in range(1, len(game.boggle_array) - 2):
-            assert index in adj
-        assert len(adj) == len(game.boggle_array) - 1
+        expected = [i for i in range(1, len(game.boggle_array))]
+        for i, index in enumerate(adj):
+            print(index)
+            assert index in expected
+        assert i == len(expected) - 1
 
     def test_get_adjacent44(self):
         """Test a 4x4 board adjacency."""
         game = Boggle(4, 4)
+        i = 0
 
         # middle
         adj = game.get_adjacent(6)
         expected = [1, 2, 3, 5, 7, 9, 10, 11]
-        for index in expected:
-            assert index in adj
-        assert len(adj) is len(expected)
+        for i, index in enumerate(adj):
+            assert index in expected
+        assert i == len(expected) - 1
 
         # middle - except some already visited
         adj = game.get_adjacent(6, [2, 4, 6, 10])
         expected = [1, 3, 5, 7, 9, 11]
-        for index in expected:
-            assert index in adj
-        assert len(adj) is len(expected)
+        for i, index in enumerate(adj):
+            assert index in expected
+        assert i == len(expected) - 1
 
         # side
         adj = game.get_adjacent(7)
         expected = [2, 3, 6, 10, 11]
-        for index in expected:
-            assert index in adj
-        assert len(adj) is len(expected)
+        for i, index in enumerate(adj):
+            assert index in expected
+        assert i == len(expected) - 1
 
         # side - except some already visited
         adj = game.get_adjacent(7, [3, 10, 20, 500])
         expected = [2, 6, 11]
-        for index in expected:
-            assert index in adj
-        assert len(adj) is len(expected)
+        for i, index in enumerate(adj):
+            assert index in expected
+        assert i == len(expected) - 1
 
         # corner
         adj = game.get_adjacent(12)
         expected = [8, 9, 13]
-        for index in expected:
-            assert index in adj
-        assert len(adj) is len(expected)
+        for i, index in enumerate(adj):
+            assert index in expected
+        assert i == len(expected) - 1
 
         # corner - except some already visited
         adj = game.get_adjacent(12, [8, 9, 13])
-        assert len(adj) is 0
+        for index in adj:
+            assert False
+        else:
+            assert True
 
 
 class test_dictionary(unittest.TestCase):
