@@ -291,6 +291,7 @@ class test_speed_against_other_libraries(unittest.TestCase):
             assert word in their_words
         assert len(my_words) == len(their_words)
         assert time_difference < 1
+        assert False
 
     def test_pypi_10_by_10(self):
         """Test 10x10 against the current boggle board on pypi."""
@@ -339,6 +340,7 @@ class test_speed_against_other_libraries(unittest.TestCase):
             assert word in their_words
         assert len(my_words) == len(their_words)
         assert time_difference < 1
+        assert False
 
     def test_100x100_time(self):
         """Test 100x100 against the current boggle board on pypi."""
@@ -357,6 +359,7 @@ class test_speed_against_other_libraries(unittest.TestCase):
 
         # make sure we can solve 100x100 in a reasonable ammount of time.
         assert my_solve_time < 120
+        assert False
 
 
 if __name__ == '__main__':
