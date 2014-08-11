@@ -53,16 +53,18 @@ class SolveBoggle:
             ignore_indexes = []
         assert self.boggle.is_full(), "Boggle board has not been set."
         node = self.edict.dictionary_root
-        words = []
+        words = set()
         keys = node.letters.keys()
         for i, letter in enumerate(self.boggle.boggle_array):
+            if node.is_word and len(node.word) > self.min_word_len:
+                words.add(node.word)
             if i not in ignore_indexes and letter in keys:
-                self.recurse_search_for_words(i, letter, '', node,
+                self.recurse_search_for_words(i, node.letters[letter],
                                               ignore_indexes + [i], normal_adj, words)
-        return sorted(set(words))
+        return sorted(words)
 
-    def recurse_search_for_words(self, a_index, letter, word, node,
-                                 indexes_searched, normal_adj, words=[]):
+    def recurse_search_for_words(self, a_index, node,
+                                 indexes_searched, normal_adj, words=set()):
         """
         Recursively search boggle board for words.
 
@@ -73,14 +75,10 @@ class SolveBoggle:
         :type indexes_searched: None or list.
         :param bool normal_adj: whether to solve for boggle or scrabble.
         """
-        new_word = word + letter
-        new_node = node.letters[letter]
-        keys = new_node.letters.keys()
-        if new_node.is_word and (len(new_word) >= self.min_word_len):
-            words.append(new_word)
-        adj = self.boggle.get_adjacent(a_index, indexes_searched, normal_adj)
-        for index in adj:
+        keys = node.letters.keys()
+        if node.is_word and (len(node.word) >= self.min_word_len):
+            words.add(node.word)
+        for index in self.boggle.get_adjacent(a_index, indexes_searched, normal_adj):
             if self.boggle.boggle_array[index] in keys:
-                self.recurse_search_for_words(index, self.boggle.boggle_array[index],
-                                              new_word, new_node, indexes_searched + [index],
-                                              normal_adj, words)
+                self.recurse_search_for_words(index, node.letters[self.boggle.boggle_array[index]],
+                                              indexes_searched + [index], normal_adj, words)
