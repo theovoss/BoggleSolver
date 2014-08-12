@@ -64,7 +64,6 @@ class test_solve_boggle(unittest.TestCase):
         solve_game.set_board(columns, rows, None)
         print("Columns are: %s, Rows are: %s" % (columns, rows))
         assert solve_game.boggle.is_full()
-        assert solve_game.boggle.size == columns * rows
 
 
 class test_everything(unittest.TestCase):

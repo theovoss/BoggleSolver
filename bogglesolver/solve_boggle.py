@@ -34,8 +34,6 @@ class SolveBoggle:
         """
         self.boggle.num_columns = columns
         self.boggle.num_rows = rows
-        self.boggle.size = columns * rows
-        print("Size is: %s, columns are: %s, rows are: %s" % (self.boggle.size, self.boggle.num_columns, self.boggle.num_rows))
         if boggle_list is not None:
             self.boggle.set_array(boggle_list)
         else:
@@ -56,8 +54,6 @@ class SolveBoggle:
         words = set()
         keys = node.letters.keys()
         for i, letter in enumerate(self.boggle.boggle_array):
-            if node.is_word and len(node.word) > self.min_word_len:
-                words.add(node.word)
             if i not in ignore_indexes and letter in keys:
                 self.recurse_search_for_words(i, node.letters[letter],
                                               ignore_indexes + [i], normal_adj, words)
@@ -68,9 +64,7 @@ class SolveBoggle:
         """
         Recursively search boggle board for words.
 
-        :param int a_index: index in the word.
-        :param str letter: current letter.
-        :param str word: current potential word.
+        :param int a_index: current board index.
         :param indexes_searched: indexes searched already.
         :type indexes_searched: None or list.
         :param bool normal_adj: whether to solve for boggle or scrabble.
@@ -78,7 +72,8 @@ class SolveBoggle:
         keys = node.letters.keys()
         if node.is_word and (len(node.word) >= self.min_word_len):
             words.add(node.word)
-        for index in self.boggle.get_adjacent(a_index, indexes_searched, normal_adj):
-            if self.boggle.boggle_array[index] in keys:
-                self.recurse_search_for_words(index, node.letters[self.boggle.boggle_array[index]],
-                                              indexes_searched + [index], normal_adj, words)
+        if len(keys) == 0:
+            return
+        for index in self.boggle.get_adjacent(a_index, indexes_searched, normal_adj, keys):
+            self.recurse_search_for_words(index, node.letters[self.boggle.boggle_array[index]],
+                                          indexes_searched + [index], normal_adj, words)
