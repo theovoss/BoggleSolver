@@ -10,8 +10,6 @@ import time
 import sqlite3
 import os
 
-import boggleboard
-
 from bogglesolver.load_english_dictionary import Edict
 from bogglesolver.boggle_board import Boggle
 from bogglesolver.solve_boggle import SolveBoggle
@@ -225,8 +223,11 @@ class test_speed_against_other_libraries(unittest.TestCase):
 
     """Test my boggle library against other boggle libraries."""
 
+    @unittest.skip("Skipping library comparisons.")
     def test_pypi_init_speeds(self):
         """Test how fast they load."""
+        import boggleboard
+
         other_default_size = 4
         letters = ['i', 'r', 'e', 'e', 'r', 'i', 'u', 'c', 't', 's', 'i', 'e', 'a', 'n', 'i', 'a']
 
@@ -252,6 +253,7 @@ class test_speed_against_other_libraries(unittest.TestCase):
     @unittest.skip("Skipping library comparisons.")
     def test_pypi_4_by_4(self):
         """Test 4x4 against the current boggle board on pypi."""
+        import boggleboard
         other_default_size = 4
         letters = ['i', 'r', 'e', 'e',
                    'r', 'i', 'u', 'c',
@@ -296,6 +298,7 @@ class test_speed_against_other_libraries(unittest.TestCase):
     @unittest.skip("Skipping library comparisons.")
     def test_pypi_10_by_10(self):
         """Test 10x10 against the current boggle board on pypi."""
+        import boggleboard
         other_default_size = 10
         letters = ['o', 'i', 's', 'r', 'l', 'm', 'i', 'e', 'a', 't',
                    'g', 'e', 't', 'y', 'r', 'b', 'd', 's', 's', 'h',
@@ -346,6 +349,7 @@ class test_speed_against_other_libraries(unittest.TestCase):
     @unittest.skip("Skipping library comparisons.")
     def test_100x100_time(self):
         """Test 100x100 against the current boggle board on pypi."""
+        import boggleboard
         other_default_size = 100
         my_boggle = SolveBoggle()
         my_boggle.set_board(other_default_size, other_default_size)
