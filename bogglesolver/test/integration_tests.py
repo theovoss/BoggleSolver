@@ -10,6 +10,8 @@ import time
 import sqlite3
 import os
 
+import boggleboard
+
 from bogglesolver.load_english_dictionary import Edict
 from bogglesolver.boggle_board import Boggle
 from bogglesolver.solve_boggle import SolveBoggle
@@ -229,6 +231,13 @@ class test_speed_against_other_libraries(unittest.TestCase):
         letters = ['i', 'r', 'e', 'e', 'r', 'i', 'u', 'c', 't', 's', 'i', 'e', 'a', 'n', 'i', 'a']
 
         t1 = time.time()
+        their_boggle = boggleboard.BoggleBoard(other_default_size, letters)
+        their_trie = boggleboard.Trie(WORD_LIST)
+        t2 = time.time()
+
+        their_time = t2 - t1
+
+        t1 = time.time()
         my_boggle = SolveBoggle()
         my_boggle.set_board(other_default_size, other_default_size, letters)
         t2 = time.time()
@@ -236,8 +245,11 @@ class test_speed_against_other_libraries(unittest.TestCase):
         my_time = t2 - t1
 
         print("My init time is: %s" % my_time)
-        assert my_time < 4
+        print("Their init time is: %s" % their_time)
+        print("Mine is %s slower." % (my_time / their_time))
+        assert my_time / their_time < 2
 
+    @unittest.skip("Skipping library comparisons.")
     def test_pypi_4_by_4(self):
         """Test 4x4 against the current boggle board on pypi."""
         other_default_size = 4
@@ -245,6 +257,15 @@ class test_speed_against_other_libraries(unittest.TestCase):
                    'r', 'i', 'u', 'c',
                    't', 's', 'i', 'e',
                    'a', 'n', 'i', 'a']
+
+        their_boggle = boggleboard.BoggleBoard(other_default_size, letters)
+        their_trie = boggleboard.Trie(WORD_LIST)
+
+        t1 = time.time()
+        their_words = their_boggle.findWords(their_trie)
+        t2 = time.time()
+
+        their_solve_time = t2 - t1
 
         my_boggle = SolveBoggle()
         my_boggle.set_board(other_default_size, other_default_size, letters)
@@ -255,11 +276,24 @@ class test_speed_against_other_libraries(unittest.TestCase):
 
         my_solve_time = t2 - t1
 
-        print("I found %s words in %s time." % (my_solve_time, len(my_words)))
+        time_difference = my_solve_time / their_solve_time
 
-        assert len(my_words) == 77
-        assert my_solve_time < 0.01
+        print("I found %s words." % len(my_words))
+        print("They found %s words." % len(their_words))
+        print("Mine is %s percent slower" % time_difference)
+        print("My total time %s\nTheir total time %s" % (my_solve_time, their_solve_time))
 
+        for word in their_words:
+            if word not in my_words:
+                print("I didn't find: %s" % word)
+                assert my_boggle.edict.is_word(word)
+        for word in my_words:
+            assert word in their_words
+        assert len(my_words) == len(their_words)
+        assert time_difference < 1
+        assert False
+
+    @unittest.skip("Skipping library comparisons.")
     def test_pypi_10_by_10(self):
         """Test 10x10 against the current boggle board on pypi."""
         other_default_size = 10
@@ -274,6 +308,15 @@ class test_speed_against_other_libraries(unittest.TestCase):
                    's', 'l', 'w', 'o', 'k', 'l', 'c', 't', 's', 'l',
                    'n', 'l', 'r', 'r', 'e', 'i', 'e', 's', 'g', 't']
 
+        their_boggle = boggleboard.BoggleBoard(other_default_size, letters)
+        their_trie = boggleboard.Trie(WORD_LIST)
+
+        t1 = time.time()
+        their_words = their_boggle.findWords(their_trie)
+        t2 = time.time()
+
+        their_solve_time = t2 - t1
+
         my_boggle = SolveBoggle()
         my_boggle.set_board(other_default_size, other_default_size, letters)
 
@@ -283,10 +326,24 @@ class test_speed_against_other_libraries(unittest.TestCase):
 
         my_solve_time = t2 - t1
 
-        print("I took %s seconds to find %s words." % (my_solve_time, len(my_words)))
-        assert len(my_words) == 1973
-        assert my_solve_time < 0.11
+        time_difference = my_solve_time / their_solve_time
 
+        print("I found %s words." % len(my_words))
+        print("They found %s words." % len(their_words))
+
+        print("Mine is %s percent slower" % time_difference)
+        print("My total time %s\nTheir total time %s" % (my_solve_time, their_solve_time))
+        for word in their_words:
+            if word not in my_words:
+                print("I didn't find: %s" % word)
+                assert my_boggle.edict.is_word(word)
+        for word in my_words:
+            assert word in their_words
+        assert len(my_words) == len(their_words)
+        assert time_difference < 1
+        assert False
+
+    @unittest.skip("Skipping library comparisons.")
     def test_100x100_time(self):
         """Test 100x100 against the current boggle board on pypi."""
         other_default_size = 100
@@ -303,7 +360,8 @@ class test_speed_against_other_libraries(unittest.TestCase):
         print("Took %s seconds to solve 100x100." % my_solve_time)
 
         # make sure we can solve 100x100 in a reasonable ammount of time.
-        assert my_solve_time < 20
+        assert my_solve_time < 120
+        assert False
 
 
 if __name__ == '__main__':
