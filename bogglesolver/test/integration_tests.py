@@ -10,8 +10,6 @@ import time
 import sqlite3
 import os
 
-import boggleboard
-
 from bogglesolver.load_english_dictionary import Edict
 from bogglesolver.boggle_board import Boggle
 from bogglesolver.solve_boggle import SolveBoggle
