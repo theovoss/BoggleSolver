@@ -21,9 +21,11 @@ class _dictnode:
     """
 
     def __init__(self):
+        self.is_terminal = False
         self.is_word = False
         self.letters = {}
         self.word = ""
+        self.word_len = 0
 
     def add_letter(self, word, index):
         """
@@ -33,14 +35,20 @@ class _dictnode:
         :param str index: current index for the letter to add.
         """
         if len(word) > index:
+            self.is_terminal = False
             if word[index] in self.letters.keys():
                 self.letters[word[index]].add_letter(word, index + 1)
             else:
                 self.letters[word[index]] = _dictnode()
                 self.letters[word[index]].add_letter(word, index + 1)
         else:
+            if len(self.letters.keys()) == 0:
+                self.is_terminal = True
+            else:
+                self.is_terminal = False
             self.is_word = True
             self.word = word
+            self.word_len = len(word)
 
 
 class Edict:
@@ -148,9 +156,8 @@ class Edict:
         :param str letter: next letter.
         :returns: True if the node has a path for the given letter, False Otherwise
         """
-        while len(letter) > 0:
-            if letter[0] not in node.letters.keys():
+        for l in letter:
+            if l not in node.letters.keys():
                 return None
-            node = node.letters[letter[0]]
-            letter = letter[1:]
+            node = node.letters[l]
         return node

@@ -67,9 +67,9 @@ class SolveBoggle:
         :type indexes_searched: None or list.
         :param bool normal_adj: whether to solve for boggle or scrabble.
         """
-        if node.is_word and (len(node.word) >= self.min_word_len):
+        if node.is_word and (node.word_len >= self.min_word_len):
             words.add(node.word)
-        if len(node.letters.keys()) == 0:
+        if node.is_terminal:
             return
         for index in self.boggle.get_adjacent(a_index, indexes_searched, normal_adj):
             new_node = self.edict.get_last_node(node, self.boggle.boggle_array[index])
