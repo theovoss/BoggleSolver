@@ -112,6 +112,37 @@ class test_dictionary(unittest.TestCase):
         assert not my_dict.is_valid_path(my_dict.dictionary_root.letters['o'], 'b')
 
 
+class test_SolveMultiLetterBoggle(unittest.TestCase):
+
+    """Unit tests for multi-letter solve game."""
+
+    def test_MultiLetterBoard(self):
+        """Test multi-letter."""
+        rows = 1
+        array = ["w", "at", "e", "r"]
+        word = "water"
+        solve_game = SolveBoggle(True)
+        solve_game.set_board(4, rows, array)
+        words = solve_game.solve()
+        assert word in words
+        assert len(words) == 1
+
+        array = ["wa", "te", "r"]
+        solve_game.set_board(3, rows, array)
+        assert word in words
+        assert len(words) == 1
+
+        array = ["wat", "er"]
+        solve_game.set_board(2, rows, array)
+        assert word in words
+        assert len(words) == 1
+
+        array = ["water"]
+        solve_game.set_board(1, rows, array)
+        assert word in words
+        assert len(words) == 1
+
+
 class test_SolveBoggle(unittest.TestCase):
 
     """Unit tests for solve boggle."""
