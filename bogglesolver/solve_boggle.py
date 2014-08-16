@@ -72,8 +72,7 @@ class SolveBoggle:
         if len(node.letters.keys()) == 0:
             return
         for index in self.boggle.get_adjacent(a_index, indexes_searched, normal_adj):
-            letter = self.boggle.boggle_array[index]
-            new_node = self.edict.get_last_node(node, letter)
+            new_node = self.edict.get_last_node(node, self.boggle.boggle_array[index])
             if new_node is not None:
                 self.recurse_search_for_words(index, new_node, indexes_searched + [index],
                                               normal_adj, words)
