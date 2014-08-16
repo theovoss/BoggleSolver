@@ -50,13 +50,11 @@ class SolveBoggle:
         if ignore_indexes is None:
             ignore_indexes = []
         assert self.boggle.is_full(), "Boggle board has not been set."
-        node = self.edict.dictionary_root
         words = set()
-        keys = node.letters.keys()
         for i, letter in enumerate(self.boggle.boggle_array):
-            if i not in ignore_indexes and letter in keys:
-                self.recurse_search_for_words(i, node.letters[letter],
-                                              ignore_indexes + [i], normal_adj, words)
+            node = self.edict.get_last_node(self.edict.dictionary_root, letter)
+            if i not in ignore_indexes and node is not None:
+                self.recurse_search_for_words(i, node, ignore_indexes + [i], normal_adj, words)
         return sorted(words)
 
     def recurse_search_for_words(self, a_index, node,
@@ -69,11 +67,13 @@ class SolveBoggle:
         :type indexes_searched: None or list.
         :param bool normal_adj: whether to solve for boggle or scrabble.
         """
-        keys = node.letters.keys()
         if node.is_word and (len(node.word) >= self.min_word_len):
             words.add(node.word)
-        if len(keys) == 0:
+        if len(node.letters.keys()) == 0:
             return
-        for index in self.boggle.get_adjacent(a_index, indexes_searched, normal_adj, keys):
-            self.recurse_search_for_words(index, node.letters[self.boggle.boggle_array[index]],
-                                          indexes_searched + [index], normal_adj, words)
+        for index in self.boggle.get_adjacent(a_index, indexes_searched, normal_adj):
+            letter = self.boggle.boggle_array[index]
+            new_node = self.edict.get_last_node(node, letter)
+            if new_node is not None:
+                self.recurse_search_for_words(index, new_node, indexes_searched + [index],
+                                              normal_adj, words)

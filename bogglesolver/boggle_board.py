@@ -27,7 +27,6 @@ class Boggle:
                 if (i % self.num_columns is 0) and (i is not 0):
                     string += " |\n"
                 string += " | " + letter
-
             string += " |\n"
         return string
 
@@ -39,7 +38,7 @@ class Boggle:
             random_number = random.randint(0, len(combined_words) - 1)
             self.boggle_array.append(combined_words[random_number])
 
-    def get_adjacent(self, index, ignore=None, normal_adj=True, keys=None):
+    def get_adjacent(self, index, ignore=None, normal_adj=True):
         """
         Get all adjacent indexes.
 
@@ -57,8 +56,6 @@ class Boggle:
         """
         if ignore is None:
             ignore = []
-        if keys is None:
-            keys = []
 
         # if not normal adjacent
         if normal_adj:
@@ -71,45 +68,37 @@ class Boggle:
             if column != 0:
                 one_less = index - 1
                 if one_less not in ignore:
-                    if self.boggle_array[one_less] in keys:
-                        yield one_less
+                    yield one_less
                 # diagonal up and left
                 if row != 0 and one_less - self.num_columns not in ignore:
-                    if self.boggle_array[one_less - self.num_columns] in keys:
-                        yield one_less - self.num_columns
+                    yield one_less - self.num_columns
                 # diagonal down and left
                 if row != self.num_rows - 1 and one_less + self.num_columns not in ignore:
-                    if self.boggle_array[one_less + self.num_columns] in keys:
-                        yield one_less + self.num_columns
+                    yield one_less + self.num_columns
 
             # index directly to the right:
             if column != self.num_columns - 1:
                 one_more = index + 1
                 if one_more not in ignore:
-                    if self.boggle_array[one_more] in keys:
-                        yield one_more
+                    yield one_more
                 # index to the top right
                 if row != 0 and one_more - self.num_columns not in ignore:
-                    if self.boggle_array[one_more - self.num_columns] in keys:
-                        yield one_more - self.num_columns
+                    yield one_more - self.num_columns
                 # index to the bottom right
                 if row != self.num_rows - 1 and one_more + self.num_columns not in ignore:
-                    if self.boggle_array[one_more + self.num_columns] in keys:
-                        yield one_more + self.num_columns
+                    yield one_more + self.num_columns
 
             # directly above
             if row != 0 and index - self.num_columns not in ignore:
-                if self.boggle_array[index - self.num_columns] in keys:
-                    yield index - self.num_columns
+                yield index - self.num_columns
 
             # directly below
             if row != self.num_rows - 1 and index + self.num_columns not in ignore:
-                if self.boggle_array[index + self.num_columns] in keys:
-                    yield index + self.num_columns
+                yield index + self.num_columns
 
         else:
             for i in range(0, self.num_rows * self.num_columns):
-                if i not in ignore and i is not index and self.boggle_array[i] in keys:
+                if i not in ignore and i is not index:
                     yield i
 
     def insert(self, character, index):

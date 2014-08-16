@@ -104,12 +104,12 @@ class test_dictionary(unittest.TestCase):
             assert word.lower() in words
         assert len(words) is len(dict_words)
 
-    def test_is_valid_path(self):
+    def test_get_last_node(self):
         """Test valid paths in the dictionary."""
         my_dict = Edict()
         my_dict.read_dictionary(True)
-        assert my_dict.is_valid_path(my_dict.dictionary_root, 'o')
-        assert not my_dict.is_valid_path(my_dict.dictionary_root.letters['o'], 'b')
+        assert my_dict.get_last_node(my_dict.dictionary_root, 'o')
+        assert my_dict.get_last_node(my_dict.dictionary_root.letters['o'], 'b') is None
 
 
 class test_SolveMultiLetterBoggle(unittest.TestCase):
@@ -124,21 +124,28 @@ class test_SolveMultiLetterBoggle(unittest.TestCase):
         solve_game = SolveBoggle(True)
         solve_game.set_board(4, rows, array)
         words = solve_game.solve()
+        print(words)
         assert word in words
         assert len(words) == 1
 
         array = ["wa", "te", "r"]
         solve_game.set_board(3, rows, array)
+        words = solve_game.solve()
+        print(words)
         assert word in words
         assert len(words) == 1
 
         array = ["wat", "er"]
         solve_game.set_board(2, rows, array)
+        words = solve_game.solve()
+        print(words)
         assert word in words
         assert len(words) == 1
 
         array = ["water"]
         solve_game.set_board(1, rows, array)
+        words = solve_game.solve()
+        print(words)
         assert word in words
         assert len(words) == 1
 

@@ -140,7 +140,7 @@ class Edict:
         node = self.get_node(word)
         return node is not None
 
-    def is_valid_path(self, node, letter):
+    def get_last_node(self, node, letter):
         """
         Determine if the letter provided is a valid path from the provided node.
 
@@ -148,4 +148,9 @@ class Edict:
         :param str letter: next letter.
         :returns: True if the node has a path for the given letter, False Otherwise
         """
-        return letter in node.letters.keys()
+        while len(letter) > 0:
+            if letter[0] not in node.letters.keys():
+                return None
+            node = node.letters[letter[0]]
+            letter = letter[1:]
+        return node
