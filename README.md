@@ -9,6 +9,8 @@ You have python installed.
 # Current Install Process
 Boggle is now command line functional. To install, run 'python setup.py install'. 
 
+Once you do this, my app at: https://github.com/theovoss/Kivy_boggle will run with `python boggle.py`
+
 # Game Play
 To play a game, run 'bogglesolver -p'. This will auto-generate a board, display it, and then wait for user input. When you press 'enter', it will display all the valid words for that board. 
 
@@ -21,5 +23,6 @@ The dictionary used is the twl06 dictionary which is the official tournament and
 
 
 Feel free to poke around the code, open issues, and submit pull requests.
+
 If you want to talk, you can get in touch with me through email: theo.voss973 at gmail.com
 
