@@ -18,3 +18,8 @@ The dictionary used is the twl06 dictionary which is the official tournament and
 
 [![Build Status](https://travis-ci.org/theovoss/BoggleSolver.svg?branch=master)](https://travis-ci.org/theovoss/BoggleSolver)
 [![Coverage Status](https://coveralls.io/repos/theovoss/BoggleSolver/badge.png?branch=master)](https://coveralls.io/r/theovoss/BoggleSolver?branch=master)
+
+
+Feel free to poke around the code, open issues, and submit pull requests.
+If you want to talk, you can get in touch with me through email: theo.voss973 at gmail.com
+
