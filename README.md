@@ -24,5 +24,5 @@ The dictionary used is the twl06 dictionary which is the official tournament and
 
 Feel free to poke around the code, open issues, and submit pull requests.
 
-If you want to talk, you can get in touch with me through email: theo.voss973 at gmail.com
+If you want to talk, you can get in touch with me through my gmail: theo.voss973
 
