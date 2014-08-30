@@ -125,8 +125,7 @@ class Edict:
             if word[i] in node.letters.keys():
                 node = node.letters[word[i]]
             else:
-                node = None
-                break
+                return None
         return node
 
     def get_last_node(self, node, letter):
