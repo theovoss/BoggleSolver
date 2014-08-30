@@ -21,34 +21,24 @@ class _dictnode:
     """
 
     def __init__(self):
-        self.is_terminal = False
-        self.is_word = False
         self.letters = {}
         self.word = ""
-        self.word_len = 0
 
-    def add_letter(self, word, index):
+    def add_letter(self, word, index, word_len):
         """
         Add a word letter by letter to the tree.
 
         :param str word: word that should be added.
         :param str index: current index for the letter to add.
         """
-        if len(word) > index:
-            self.is_terminal = False
+        if word_len > index:
             if word[index] in self.letters.keys():
-                self.letters[word[index]].add_letter(word, index + 1)
+                self.letters[word[index]].add_letter(word, index + 1, word_len)
             else:
                 self.letters[word[index]] = _dictnode()
-                self.letters[word[index]].add_letter(word, index + 1)
+                self.letters[word[index]].add_letter(word, index + 1, word_len)
         else:
-            if len(self.letters.keys()) == 0:
-                self.is_terminal = True
-            else:
-                self.is_terminal = False
-            self.is_word = True
             self.word = word
-            self.word_len = len(word)
 
 
 class Edict:
@@ -76,7 +66,7 @@ class Edict:
             words = TEST_WORD_LIST
         else:
             words = WORD_LIST
-        for word in words:
+        for word in reversed(words):
             self.add_word(word.lower())
 
     def is_word(self, word):
@@ -89,7 +79,7 @@ class Edict:
         :returns: True if word is in dictionary. Otherwise False.
         """
         node = self.get_node(word)
-        return node.is_word if node else False
+        return node.word != "" if node else False
 
     def add_word(self, word):
         """
@@ -99,7 +89,7 @@ class Edict:
 
         :param str word: word to add.
         """
-        self.dictionary_root.add_letter(word.lower(), 0)
+        self.dictionary_root.add_letter(word.lower(), 0, len(word))
 
     def get_words(self, node, all_words=[]):
         """
@@ -114,7 +104,7 @@ class Edict:
         """
         for a_node in node.letters.keys():
             all_words = self.get_words(node.letters[a_node], all_words)
-        if node.is_word and node.word not in all_words:
+        if node.word and node.word not in all_words:
             all_words.append(node.word)
         return all_words
 
@@ -138,15 +128,6 @@ class Edict:
                 node = None
                 break
         return node
-
-    def is_still_potentially_valid(self, word):
-        """
-        Determine if a possible word is still potentially valid.
-
-        :param word: word to test for validity.
-        """
-        node = self.get_node(word)
-        return node is not None
 
     def get_last_node(self, node, letter):
         """

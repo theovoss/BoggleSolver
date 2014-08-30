@@ -80,18 +80,6 @@ class test_dictionary(unittest.TestCase):
         assert False is my_dict.is_word("h")
         assert False is my_dict.is_word("hel")
 
-    def test_is_still_valid(self):
-        """Test for valid dictionary paths."""
-        my_dict = Edict()
-        my_dict.read_dictionary(True)
-        assert my_dict.is_still_potentially_valid("ortho")
-        assert my_dict.is_still_potentially_valid("orthorhombic")
-        assert my_dict.is_still_potentially_valid("orthorhombics") is False
-        assert my_dict.is_still_potentially_valid("1") is False
-        assert my_dict.is_still_potentially_valid("aa")
-        assert my_dict.is_still_potentially_valid("A")
-        assert my_dict.is_still_potentially_valid("AaA") is False
-
     def test_get_words(self):
         """Test getting words out of the dictionary."""
         my_dict = Edict()

@@ -79,7 +79,7 @@ class test_everything(unittest.TestCase):
         game.generate_boggle_board()
         assert game.is_full()
 
-    # @unittest.skip("Skipping integration tests.")
+    @unittest.skip("Skipping integration tests.")
     def test_solves_Boggle(self):
         """Test solving the boggle board."""
         columns = 4
@@ -114,7 +114,7 @@ class test_everything(unittest.TestCase):
             else:
                 assert word not in solved
 
-    # @unittest.skip("Skipping integration tests.")
+    @unittest.skip("Skipping integration tests.")
     def test_search_speed_vs_raw_read(self):
         """Test search speed."""
         my_dict = Edict()
@@ -167,14 +167,19 @@ class test_everything(unittest.TestCase):
     # @unittest.skip("Skipping integration tests.")
     def test_loads_all_words(self):
         """Test the dictionary can load all the words."""
+        t0 = time.time()
         my_dict = Edict()
         my_dict.read_dictionary()
+        t1 = time.time()
+
+        print("Took %s seconds to read in the dictionary." % (t1 - t0))
+        assert False
 
         for line in WORD_LIST:
             my_dict.is_word(line.lower())
             assert my_dict.is_word(line.lower())
 
-    # @unittest.skip("Skipping integration tests.")
+    @unittest.skip("Skipping integration tests.")
     def test_against_my_sql(self):
         """Test searching in custom dictionary is faster than in my_sql."""
         my_dict = Edict()
@@ -223,7 +228,7 @@ class test_speed_against_other_libraries(unittest.TestCase):
 
     """Test my boggle library against other boggle libraries."""
 
-    @unittest.skip("Skipping library comparisons.")
+    # @unittest.skip("Skipping library comparisons.")
     def test_pypi_init_speeds(self):
         """Test how fast they load."""
         import boggleboard
@@ -250,7 +255,7 @@ class test_speed_against_other_libraries(unittest.TestCase):
         print("Mine is %s slower." % (my_time / their_time))
         assert my_time / their_time < 2
 
-    @unittest.skip("Skipping library comparisons.")
+    # @unittest.skip("Skipping library comparisons.")
     def test_pypi_4_by_4(self):
         """Test 4x4 against the current boggle board on pypi."""
         import boggleboard
@@ -295,7 +300,7 @@ class test_speed_against_other_libraries(unittest.TestCase):
         assert time_difference < 1
         assert False
 
-    @unittest.skip("Skipping library comparisons.")
+    # @unittest.skip("Skipping library comparisons.")
     def test_pypi_10_by_10(self):
         """Test 10x10 against the current boggle board on pypi."""
         import boggleboard
@@ -346,7 +351,7 @@ class test_speed_against_other_libraries(unittest.TestCase):
         assert time_difference < 1
         assert False
 
-    @unittest.skip("Skipping library comparisons.")
+    # @unittest.skip("Skipping library comparisons.")
     def test_100x100_time(self):
         """Test 100x100 against the current boggle board on pypi."""
         import boggleboard
