@@ -2,7 +2,12 @@
 
 """Adjacency functions used to solve the board.
 
-In a separate file for easier expansion.
+In a separate file for easier modification, and to better show multiple possibilities.
+WARNING: the adjacency function will be called a lot. optimize it for speed if you modify
+    or create your own.
+The examples are optimized for speed.
+If you find faster ways to do this please share.
+If you have speed issues using your own function, optimize it for speed.
 """
 
 
@@ -143,6 +148,9 @@ def get_toroid_boggle_adjacent(index, num_columns, num_rows, ignore=None):
 def get_scrabble_adjacent(index, num_columns, num_rows, ignore=None):
     """
     Get all adjacent indexes for solving scrabble.
+
+    WARNING: this does not scale to larger boards as well as the other two
+        as it has to return a lot more indeces.
 
     Basically if it's not the index, and not ignored, yield it.
 
