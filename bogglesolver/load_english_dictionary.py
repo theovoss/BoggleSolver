@@ -78,7 +78,7 @@ class Edict:
         :param str word: word to look for in the dictionary.
         :returns: True if word is in dictionary. Otherwise False.
         """
-        node = self.get_node(word)
+        node = self.get_last_node(self.dictionary_root, word.lower())
         return node.word != "" if node else False
 
     def add_word(self, word):
@@ -107,26 +107,6 @@ class Edict:
         if node.word and node.word not in all_words:
             all_words.append(node.word)
         return all_words
-
-    def get_node(self, string):
-        """
-        Get a node based on the provided word.
-
-        Used to determine if a string is still potentially a valid word.
-
-        :param str string: find the node at the end of the string.
-        :returns: node of the dictionary node that corresponds to
-                  the end of the string or None if the string is not on
-                  a valid dictionary path.
-        """
-        word = string.lower()
-        node = self.dictionary_root
-        for i in range(0, len(word)):
-            if word[i] in node.letters.keys():
-                node = node.letters[word[i]]
-            else:
-                return None
-        return node
 
     def get_last_node(self, node, letter):
         """

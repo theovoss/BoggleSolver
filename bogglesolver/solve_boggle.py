@@ -5,6 +5,7 @@
 
 from bogglesolver.boggle_board import Boggle
 from bogglesolver.load_english_dictionary import Edict
+from bogglesolver.adjacency import *
 
 
 class SolveBoggle:
@@ -39,7 +40,7 @@ class SolveBoggle:
         else:
             self.boggle.generate_boggle_board()
 
-    def solve(self, ignore_indexes=None, normal_adj=True):
+    def solve(self, ignore_indexes=None, normal_adj=True, adjacency_funct=get_standard_boggle_adjacent):
         """
         Solve the boggle board, or get all words for scrabble.
 
@@ -54,11 +55,11 @@ class SolveBoggle:
         for i, letter in enumerate(self.boggle.boggle_array):
             node = self.edict.get_last_node(self.edict.dictionary_root, letter)
             if i not in ignore_indexes and node is not None:
-                self.recurse_search_for_words(i, node, ignore_indexes + [i], normal_adj, words)
+                self.recurse_search_for_words(i, node, ignore_indexes + [i], adjacency_funct, words)
         return sorted(words)
 
     def recurse_search_for_words(self, a_index, node,
-                                 indexes_searched, normal_adj, words=set()):
+                                 indexes_searched, adjacency_funct, words=set()):
         """
         Recursively search boggle board for words.
 
@@ -71,8 +72,8 @@ class SolveBoggle:
             words.add(node.word)
         if not node.letters.keys():
             return
-        for index in self.boggle.get_adjacent(a_index, indexes_searched, normal_adj):
+        for index in adjacency_funct(a_index, self.boggle.num_columns, self.boggle.num_rows, indexes_searched):
             new_node = self.edict.get_last_node(node, self.boggle.boggle_array[index])
             if new_node is not None:
                 self.recurse_search_for_words(index, new_node, indexes_searched + [index],
-                                              normal_adj, words)
+                                              adjacency_funct, words)

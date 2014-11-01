@@ -38,69 +38,6 @@ class Boggle:
             random_number = random.randint(0, len(combined_words) - 1)
             self.boggle_array.append(combined_words[random_number])
 
-    def get_adjacent(self, index, ignore=None, normal_adj=True):
-        """
-        Get all adjacent indexes.
-
-        Ignore is meant to be the disabled or previously traversed indexes.
-        Normal_adj is to toggle between finding words in a boggle board
-            and finding all possible words for scrabble.
-            True is find words in boggle board. False is to find scrabble
-            words.
-
-        :param int index: index to get all adjacent indexes of.
-        :param list ignore: optional list of indexes to ignore.
-        :param bool normal_adj: whether to use the normal is adjacent
-               or ignore it.
-        :returns: True if adjacent. False otherwise.
-        """
-        if ignore is None:
-            ignore = []
-
-        # if not normal adjacent
-        if normal_adj:
-            row = index // self.num_columns
-            column = index % self.num_columns
-
-            # calculate the 8 indexes that surround this index
-
-            # index directly to the left:
-            if column != 0:
-                one_less = index - 1
-                if one_less not in ignore:
-                    yield one_less
-                # diagonal up and left
-                if row != 0 and one_less - self.num_columns not in ignore:
-                    yield one_less - self.num_columns
-                # diagonal down and left
-                if row != self.num_rows - 1 and one_less + self.num_columns not in ignore:
-                    yield one_less + self.num_columns
-
-            # index directly to the right:
-            if column != self.num_columns - 1:
-                one_more = index + 1
-                if one_more not in ignore:
-                    yield one_more
-                # index to the top right
-                if row != 0 and one_more - self.num_columns not in ignore:
-                    yield one_more - self.num_columns
-                # index to the bottom right
-                if row != self.num_rows - 1 and one_more + self.num_columns not in ignore:
-                    yield one_more + self.num_columns
-
-            # directly above
-            if row != 0 and index - self.num_columns not in ignore:
-                yield index - self.num_columns
-
-            # directly below
-            if row != self.num_rows - 1 and index + self.num_columns not in ignore:
-                yield index + self.num_columns
-
-        else:
-            for i in range(0, self.num_rows * self.num_columns):
-                if i not in ignore and i is not index:
-                    yield i
-
     def insert(self, character, index):
         """
         Insert a character into the boggle array.
