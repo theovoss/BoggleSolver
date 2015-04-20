@@ -19,8 +19,8 @@ class SolveBoggle:
 
     def __init__(self, use_test_words=False):
         self.use_test_words = use_test_words
-        self.edict = Edict()
-        self.edict.read_dictionary(self.use_test_words)
+        # self.edict = Edict()
+        # self.edict.read_dictionary(self.use_test_words)
         self.boggle = Boggle()
         self.min_word_len = 3
 
@@ -40,7 +40,7 @@ class SolveBoggle:
         else:
             self.boggle.generate_boggle_board()
 
-    def solve(self, ignore_indexes=None, normal_adj=True, adjacency_funct=get_standard_boggle_adjacent):
+    def solve(self, edict, ignore_indexes=None, normal_adj=True, adjacency_funct=get_standard_boggle_adjacent):
         """
         Solve the boggle board, or get all words for scrabble.
 
@@ -53,12 +53,12 @@ class SolveBoggle:
         assert self.boggle.is_full(), "Boggle board has not been set."
         words = set()
         for i, letter in enumerate(self.boggle.boggle_array):
-            node = self.edict.get_last_node(self.edict.dictionary_root, letter)
+            node = edict.get_last_node(edict.dictionary_root, letter)
             if i not in ignore_indexes and node is not None:
-                self.recurse_search_for_words(i, node, ignore_indexes + [i], adjacency_funct, words)
+                self.recurse_search_for_words(i, edict, node, ignore_indexes + [i], adjacency_funct, words)
         return sorted(words)
 
-    def recurse_search_for_words(self, a_index, node,
+    def recurse_search_for_words(self, a_index, edict, node,
                                  indexes_searched, adjacency_funct, words=set()):
         """
         Recursively search boggle board for words.
@@ -73,7 +73,7 @@ class SolveBoggle:
         if not node.letters.keys():
             return
         for index in adjacency_funct(a_index, self.boggle.num_columns, self.boggle.num_rows, indexes_searched):
-            new_node = self.edict.get_last_node(node, self.boggle.boggle_array[index])
+            new_node = edict.get_last_node(node, self.boggle.boggle_array[index])
             if new_node is not None:
-                self.recurse_search_for_words(index, new_node, indexes_searched + [index],
+                self.recurse_search_for_words(index, edict, new_node, indexes_searched + [index],
                                               adjacency_funct, words)

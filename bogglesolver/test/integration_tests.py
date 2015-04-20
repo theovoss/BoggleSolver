@@ -29,14 +29,16 @@ class test_solve_boggle(unittest.TestCase):
         rows = 1
         array = ["w", "a", "t", "e", "r"]
         solve_game = SolveBoggle(True)
+        edict = Edict()
         solve_game.set_board(columns, rows, array)
-        solve_game.edict.add_word("wata")
-        solve_game.edict.add_word("wate")
-        solve_game.edict.add_word("a")
-        solve_game.edict.add_word("tear")
-        solve_game.edict.add_word("tea")
-        solve_game.edict.add_word("eat")
-        solved = solve_game.solve()
+        edict.add_word("wata")
+        edict.add_word("wate")
+        edict.add_word("water")
+        edict.add_word("a")
+        edict.add_word("tear")
+        edict.add_word("tea")
+        edict.add_word("eat")
+        solved = solve_game.solve(edict)
         assert "water" in solved
         assert "a" not in solved
         assert "wata" not in solved
@@ -46,10 +48,10 @@ class test_solve_boggle(unittest.TestCase):
         assert "tea" not in solved
 
         solve_game.min_word_len = 0
-        solved = solve_game.solve()
+        solved = solve_game.solve(edict)
         assert "a" in solved
 
-        solved = solve_game.solve(adjacency_funct=get_scrabble_adjacent)
+        solved = solve_game.solve(edict, adjacency_funct=get_scrabble_adjacent)
         assert "water" in solved
         assert "a" in solved
         assert "wata" not in solved
@@ -89,14 +91,15 @@ class test_everything(unittest.TestCase):
 
         solve_game = SolveBoggle()
         solve_game.set_board(columns, rows, array)
+        edict = Edict()
 
         # found words from: http://www.bogglecheat.net/, though may not be in my dictionary
         known_words = ["knife", "mino", "bein", "fink", "nife", "glop", "polk", "mink", "fino", "jink", "nief", "knop", "ink", "fin", "jin", "nim", "kop", "pol", "fab", "fie", "nie", "kon", "lop", "ab", "ef", "if", "mi", "be", "jo", "ch", "on", "lo", "ae", "ea", "in", "ba", "fa", "no", "ko", "op", "po"]
         for word in known_words:
-            solve_game.edict.add_word(word)
+            edict.add_word(word)
 
         solve_game.min_word_len = 5
-        solved = solve_game.solve()
+        solved = solve_game.solve(edict)
 
         for word in known_words:
             if len(word) >= solve_game.min_word_len:
@@ -105,7 +108,7 @@ class test_everything(unittest.TestCase):
                 assert word not in solved
 
         solve_game.min_word_len = 0
-        solved = solve_game.solve()
+        solved = solve_game.solve(edict)
 
         for word in known_words:
             if len(word) >= solve_game.min_word_len:
@@ -166,6 +169,8 @@ class test_speed_against_other_libraries(unittest.TestCase):
                    't', 's', 'i', 'e',
                    'a', 'n', 'i', 'a']
 
+        edict = Edict()
+
         their_boggle = boggleboard.BoggleBoard(other_default_size, letters)
         their_trie = boggleboard.Trie(WORD_LIST)
 
@@ -179,7 +184,7 @@ class test_speed_against_other_libraries(unittest.TestCase):
         my_boggle.set_board(other_default_size, other_default_size, letters)
 
         t1 = time.time()
-        my_words = my_boggle.solve()
+        my_words = my_boggle.solve(edict)
         t2 = time.time()
 
         my_solve_time = t2 - t1
@@ -205,6 +210,9 @@ class test_speed_against_other_libraries(unittest.TestCase):
     def test_pypi_10_by_10(self):
         """Test 10x10 against the current boggle board on pypi."""
         import boggleboard
+
+        edict = Edict()
+
         other_default_size = 10
         letters = ['o', 'i', 's', 'r', 'l', 'm', 'i', 'e', 'a', 't',
                    'g', 'e', 't', 'y', 'r', 'b', 'd', 's', 's', 'h',
@@ -230,7 +238,7 @@ class test_speed_against_other_libraries(unittest.TestCase):
         my_boggle.set_board(other_default_size, other_default_size, letters)
 
         t1 = time.time()
-        my_words = my_boggle.solve()
+        my_words = my_boggle.solve(edict)
         t2 = time.time()
 
         my_solve_time = t2 - t1
@@ -256,12 +264,13 @@ class test_speed_against_other_libraries(unittest.TestCase):
     def test_100x100_time(self):
         """Test 100x100 against the current boggle board on pypi."""
         import boggleboard
+        edict = Edict()
         other_default_size = 100
         my_boggle = SolveBoggle()
         my_boggle.set_board(other_default_size, other_default_size)
 
         t1 = time.time()
-        my_words = my_boggle.solve()
+        my_words = my_boggle.solve(edict)
         t2 = time.time()
 
         my_solve_time = t2 - t1

@@ -105,35 +105,38 @@ class test_SolveMultiLetterBoggle(unittest.TestCase):
 
     """Unit tests for multi-letter solve game."""
 
+    edict = Edict()
+    edict.read_dictionary(True)
+
     def test_MultiLetterBoard(self):
         """Test multi-letter."""
         rows = 1
         array = ["w", "at", "e", "r"]
         word = "water"
-        solve_game = SolveBoggle(True)
+        solve_game = SolveBoggle()
         solve_game.set_board(4, rows, array)
-        words = solve_game.solve()
+        words = solve_game.solve(self.edict)
         print(words)
         assert word in words
         assert len(words) == 1
 
         array = ["wa", "te", "r"]
         solve_game.set_board(3, rows, array)
-        words = solve_game.solve()
+        words = solve_game.solve(self.edict)
         print(words)
         assert word in words
         assert len(words) == 1
 
         array = ["wat", "er"]
         solve_game.set_board(2, rows, array)
-        words = solve_game.solve()
+        words = solve_game.solve(self.edict)
         print(words)
         assert word in words
         assert len(words) == 1
 
         array = ["water"]
         solve_game.set_board(1, rows, array)
-        words = solve_game.solve()
+        words = solve_game.solve(self.edict)
         print(words)
         assert word in words
         assert len(words) == 1
