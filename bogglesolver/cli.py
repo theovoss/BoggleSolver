@@ -6,6 +6,7 @@ import argparse
 import time
 
 from bogglesolver.solve_boggle import SolveBoggle
+from bogglesolver.load_english_dictionary import Edict
 
 
 def main(args=None):
@@ -55,7 +56,9 @@ def main(args=None):
     if args.play:
         solver = SolveBoggle()
         solver.set_board(column, row)
-        words = solver.solve()
+        cli_dict = Edict()  # !!! kludge ?
+        cli_dict.read_dictionary()  # !!! kludge ?
+        words = solver.solve(cli_dict)
         print(solver.boggle)
         print("Play Boggle!!")
         time.sleep(game_time)
