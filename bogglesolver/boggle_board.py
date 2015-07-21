@@ -34,7 +34,7 @@ class Boggle:
         """Generate a boggle board by randomly selecting letters from valid words."""
         combined_words = ''.join(WORD_LIST)
         self.boggle_array = []
-        for i in range(0, self.num_columns * self.num_rows):
+        for _ in range(0, self.num_columns * self.num_rows):
             random_number = random.randint(0, len(combined_words) - 1)
             self.boggle_array.append(combined_words[random_number])
 

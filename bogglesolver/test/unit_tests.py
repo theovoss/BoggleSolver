@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+# pylint: disable=R0201
 """Unit tests for all boggle classes."""
 
 
@@ -8,12 +8,12 @@ import unittest
 from bogglesolver.load_english_dictionary import Edict
 from bogglesolver.boggle_board import Boggle
 from bogglesolver.solve_boggle import SolveBoggle
-from bogglesolver.adjacency import *
+from bogglesolver.adjacency import get_standard_boggle_adjacent, get_toroid_boggle_adjacent
 
 from bogglesolver.twl06 import TEST_WORD_LIST
 
 
-class test_boggle_letters(unittest.TestCase):
+class TestBoggleLetters(unittest.TestCase):
 
     """Unit tests for adding letters to the boggle board."""
 
@@ -51,7 +51,7 @@ class test_boggle_letters(unittest.TestCase):
         assert game.is_full()
 
 
-class test_dictionary(unittest.TestCase):
+class TestDictionary(unittest.TestCase):
 
     """Unit tests for the dictionary."""
 
@@ -101,7 +101,7 @@ class test_dictionary(unittest.TestCase):
         assert my_dict.get_last_node(my_dict.dictionary_root.letters['o'], 'b') is None
 
 
-class test_SolveMultiLetterBoggle(unittest.TestCase):
+class TestSolveMultiLetterBoggle(unittest.TestCase):
 
     """Unit tests for multi-letter solve game."""
 
@@ -142,7 +142,7 @@ class test_SolveMultiLetterBoggle(unittest.TestCase):
         assert len(words) == 1
 
 
-class test_SolveBoggle(unittest.TestCase):
+class TestSolveBoggle(unittest.TestCase):
 
     """Unit tests for solve boggle."""
 
@@ -171,7 +171,7 @@ class test_SolveBoggle(unittest.TestCase):
         assert solve_game.boggle.num_columns == columns
 
 
-class test_Adjacency(unittest.TestCase):
+class TestAdjacency(unittest.TestCase):
 
     """Unit tests for testing adjacency."""
 
@@ -182,7 +182,6 @@ class test_Adjacency(unittest.TestCase):
         num_rows = 4
         expected_adjacent = [1, 4, 5]
         adjacent = get_standard_boggle_adjacent(index, num_columns, num_rows, ignore=None)
-        i = 0
         for index in adjacent:
             expected_adjacent.remove(index)
         assert 0 == len(expected_adjacent)
@@ -194,7 +193,6 @@ class test_Adjacency(unittest.TestCase):
         num_rows = 4
         expected_adjacent = [0, 1, 2, 4, 6, 8, 9, 10]
         adjacent = get_standard_boggle_adjacent(index, num_columns, num_rows, ignore=None)
-        i = 0
         for index in adjacent:
             expected_adjacent.remove(index)
         assert 0 == len(expected_adjacent)
@@ -206,7 +204,6 @@ class test_Adjacency(unittest.TestCase):
         num_rows = 4
         expected_adjacent = [4, 5, 9, 12, 13]
         adjacent = get_standard_boggle_adjacent(index, num_columns, num_rows, ignore=None)
-        i = 0
         for index in adjacent:
             expected_adjacent.remove(index)
         assert 0 == len(expected_adjacent)
@@ -218,7 +215,6 @@ class test_Adjacency(unittest.TestCase):
         num_rows = 4
         expected_adjacent = [10, 11, 14]
         adjacent = get_standard_boggle_adjacent(index, num_columns, num_rows, ignore=None)
-        i = 0
         for index in adjacent:
             expected_adjacent.remove(index)
         assert 0 == len(expected_adjacent)
@@ -230,7 +226,6 @@ class test_Adjacency(unittest.TestCase):
         num_rows = 4
         expected_adjacent = [1, 4, 5, 3, 7, 12, 13, 15]
         adjacent = get_toroid_boggle_adjacent(index, num_columns, num_rows, ignore=None)
-        i = 0
         for index in adjacent:
             expected_adjacent.remove(index)
         assert 0 == len(expected_adjacent)
@@ -242,7 +237,6 @@ class test_Adjacency(unittest.TestCase):
         num_rows = 4
         expected_adjacent = [0, 1, 2, 4, 6, 8, 9, 10]
         adjacent = get_toroid_boggle_adjacent(index, num_columns, num_rows, ignore=None)
-        i = 0
         for index in adjacent:
             expected_adjacent.remove(index)
         assert 0 == len(expected_adjacent)
@@ -254,7 +248,6 @@ class test_Adjacency(unittest.TestCase):
         num_rows = 4
         expected_adjacent = [4, 5, 9, 12, 13, 7, 11, 15]
         adjacent = get_toroid_boggle_adjacent(index, num_columns, num_rows, ignore=None)
-        i = 0
         for index in adjacent:
             expected_adjacent.remove(index)
         assert 0 == len(expected_adjacent)
@@ -266,7 +259,6 @@ class test_Adjacency(unittest.TestCase):
         num_rows = 4
         expected_adjacent = [10, 11, 14, 8, 12, 0, 2, 3]
         adjacent = get_toroid_boggle_adjacent(index, num_columns, num_rows, ignore=None)
-        i = 0
         for index in adjacent:
             expected_adjacent.remove(index)
         assert 0 == len(expected_adjacent)

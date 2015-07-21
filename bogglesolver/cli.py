@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# pylint: disable=E1121
 
 """Command-line interface for boggle solver."""
 

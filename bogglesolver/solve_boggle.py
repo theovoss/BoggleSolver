@@ -4,8 +4,7 @@
 
 
 from bogglesolver.boggle_board import Boggle
-from bogglesolver.load_english_dictionary import Edict
-from bogglesolver.adjacency import *
+from bogglesolver.adjacency import get_standard_boggle_adjacent
 
 
 class SolveBoggle:
@@ -40,12 +39,11 @@ class SolveBoggle:
         else:
             self.boggle.generate_boggle_board()
 
-    def solve(self, edict, ignore_indexes=None, normal_adj=True, adjacency_funct=get_standard_boggle_adjacent):
+    def solve(self, edict, ignore_indexes=None, adjacency_funct=get_standard_boggle_adjacent):
         """
         Solve the boggle board, or get all words for scrabble.
 
-        :param bool normal_adj: True to solve for boggle.
-                                False to solve for scrabble.
+        :param adjacency_funct: the function to use to determine adjacency
         :returns: sorted list of all words found.
         """
         if ignore_indexes is None:
@@ -58,8 +56,7 @@ class SolveBoggle:
                 self.recurse_search_for_words(i, edict, node, ignore_indexes + [i], adjacency_funct, words)
         return sorted(words)
 
-    def recurse_search_for_words(self, a_index, edict, node,
-                                 indexes_searched, adjacency_funct, words=set()):
+    def recurse_search_for_words(self, a_index, edict, node, indexes_searched, adjacency_funct, words=set()):  # pylint: disable=W0102
         """
         Recursively search boggle board for words.
 

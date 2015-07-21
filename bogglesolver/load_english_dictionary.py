@@ -91,7 +91,7 @@ class Edict:
         """
         self.dictionary_root.add_letter(word.lower(), 0, len(word))
 
-    def get_words(self, node, all_words=[]):
+    def get_words(self, node, all_words=[]):  # pylint: disable=W0102
         """
         Get all words from the specified node on down.
 
@@ -108,7 +108,8 @@ class Edict:
             all_words.append(node.word)
         return all_words
 
-    def get_last_node(self, node, letter):
+    @staticmethod
+    def get_last_node(node, letter):
         """
         Determine if the letter provided is a valid path from the provided node.
 

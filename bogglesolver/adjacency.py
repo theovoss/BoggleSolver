@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+# pylint: disable=R0912
 """Adjacency functions used to solve the board.
 
 In a separate file for easier modification, and to better show multiple possibilities.
