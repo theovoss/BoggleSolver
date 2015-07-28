@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+# pylint: disable=R0912
 """Adjacency functions used to solve the board.
 
 In a separate file for easier modification, and to better show multiple possibilities.
@@ -162,6 +162,8 @@ def get_scrabble_adjacent(index, num_columns, num_rows, ignore=None):
     :param list ignore: optional list of indexes to ignore.
     :yields: the adjacent indices.
     """
+    if ignore is None:
+        ignore = []
     for i in range(0, num_rows * num_columns):
         if i not in ignore and i is not index:
             yield i
