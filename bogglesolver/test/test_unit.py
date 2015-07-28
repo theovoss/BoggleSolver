@@ -8,7 +8,7 @@ import unittest
 from bogglesolver.load_english_dictionary import Edict
 from bogglesolver.boggle_board import Boggle
 from bogglesolver.solve_boggle import SolveBoggle
-from bogglesolver.adjacency import get_standard_boggle_adjacent, get_toroid_boggle_adjacent
+from bogglesolver.adjacency import get_standard_boggle_adjacent, get_toroid_boggle_adjacent, get_scrabble_adjacent
 
 from bogglesolver.twl06 import TEST_WORD_LIST
 
@@ -49,6 +49,12 @@ class TestBoggleLetters(unittest.TestCase):
         array = ["a"] * 16
         game.set_array(array)
         assert game.is_full()
+
+    def test_boggle_can_generate_board(self):
+        game = Boggle(4, 4)
+        assert game.is_full() is False
+        game.generate_boggle_board()
+        assert game.is_full() is True
 
 
 class TestDictionary(unittest.TestCase):
@@ -170,6 +176,12 @@ class TestSolveBoggle(unittest.TestCase):
         assert solve_game.boggle.num_rows == rows
         assert solve_game.boggle.num_columns == columns
 
+    def test_set_board_can_generate_board(self):
+        solve_game = SolveBoggle(True)
+        assert solve_game.boggle.is_full() is False
+        solve_game.set_board(4, 4)
+        assert solve_game.boggle.is_full() is True
+
 
 class TestAdjacency(unittest.TestCase):
 
@@ -259,6 +271,19 @@ class TestAdjacency(unittest.TestCase):
         num_rows = 4
         expected_adjacent = [10, 11, 14, 8, 12, 0, 2, 3]
         adjacent = get_toroid_boggle_adjacent(index, num_columns, num_rows, ignore=None)
+        for index in adjacent:
+            expected_adjacent.remove(index)
+        assert 0 == len(expected_adjacent)
+
+    def test_scrabble_adjacency_index_4(self):
+        """Test scrabble adjacency (everything is adjacent except the current)."""
+        index = 4
+        num_rows = 4
+        num_columns = 4
+        expected_adjacent = [i for i in range(0, num_columns * num_rows)]
+        expected_adjacent.remove(index)
+
+        adjacent = get_scrabble_adjacent(index, num_columns, num_rows, ignore=None)
         for index in adjacent:
             expected_adjacent.remove(index)
         assert 0 == len(expected_adjacent)

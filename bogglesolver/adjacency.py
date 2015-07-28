@@ -162,6 +162,8 @@ def get_scrabble_adjacent(index, num_columns, num_rows, ignore=None):
     :param list ignore: optional list of indexes to ignore.
     :yields: the adjacent indices.
     """
+    if ignore is None:
+        ignore = []
     for i in range(0, num_rows * num_columns):
         if i not in ignore and i is not index:
             yield i
