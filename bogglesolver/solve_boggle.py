@@ -39,6 +39,36 @@ class SolveBoggle:
         else:
             self.boggle.generate_boggle_board()
 
+    def find_word(self, word, ignore_indexes=None, adjacency_funct=get_standard_boggle_adjacent):
+        """
+        Find the indices for a specified word in the current board.
+
+        :param word: the word to find.
+        :param adjacency_funct: the function to use to determine adjacency.
+        :returns: a list of board indices containing the word.
+        """
+        if ignore_indexes is None:
+            ignore_indexes = []
+        indices = [i for i, x in enumerate(self.boggle.boggle_array) if x == word[0]]
+        for i in indices:
+            word_indices = self.recursive_find_word(i, word, 1, ignore_indexes.append(i), adjacency_funct)
+            word_indices.append(i)
+            if word_indices and len(word_indices) == len(word):
+                return list(reversed(word_indices))
+        return []
+
+    def recursive_find_word(self, a_index, word, word_index, indexes_searched, adjacency_funct=get_standard_boggle_adjacent):
+        if len(word) <= word_index:
+            return []
+        if indexes_searched is None:
+            indexes_searched = []
+        for index in adjacency_funct(a_index, self.boggle.num_columns, self.boggle.num_rows, indexes_searched):
+            if self.boggle.boggle_array[index] == word[word_index]:
+                indexes = self.recursive_find_word(index, word, word_index + 1, indexes_searched.append(index), adjacency_funct=adjacency_funct)
+                indexes.append(index)
+                return indexes
+        return []
+
     def solve(self, edict, ignore_indexes=None, adjacency_funct=get_standard_boggle_adjacent):
         """
         Solve the boggle board, or get all words for scrabble.

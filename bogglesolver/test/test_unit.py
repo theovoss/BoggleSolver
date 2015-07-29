@@ -182,6 +182,22 @@ class TestSolveBoggle(unittest.TestCase):
         solve_game.set_board(4, 4)
         assert solve_game.boggle.is_full() is True
 
+    def test_can_find_word_indices(self):
+        solve_game = SolveBoggle(True)
+        solve_game.set_board(4, 4, "thoipqefqqqqrrrr")
+        assert solve_game.boggle.is_full()
+        expected_indices = [0, 1, 6, 2]
+        actual_indices = solve_game.find_word("theo")
+        assert actual_indices == expected_indices
+
+    def test_find_word_returns_empty_list_if_word_is_not_in_board(self):
+        solve_game = SolveBoggle(True)
+        solve_game.set_board(4, 4)
+        assert solve_game.boggle.is_full()
+        expected_indices = []
+        actual_indices = solve_game.find_word("zzzzzzzzzz")
+        assert expected_indices == actual_indices
+
 
 class TestAdjacency(unittest.TestCase):
 
