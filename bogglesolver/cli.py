@@ -29,12 +29,14 @@ def main(args=None):
                         help="int game time in seconds.")
     parser.add_argument('-l', '--length', type=int,
                         help="Change the minimum word length.")
-    parser.add_argument('-w', '--words', type=str,
-                        help="Get all words for a given list of letters.")
+    parser.add_argument('-b', '--board', type=str,
+                        help="The board as a single string.")
     parser.add_argument('-c', '--columns', type=int,
                         help="Set the number of columns.")
     parser.add_argument('-r', '--rows', type=int,
                         help="Set the number of rows.")
+    parser.add_argument('-o', '--output', action='store_true',
+                        help="Just output the results.")
 
     args = parser.parse_args(args=args)
 
@@ -44,9 +46,9 @@ def main(args=None):
     if args.rows:
         row = args.rows
 
-    if args.words:
-        solver = SolveBoggle(args.words, column, row)
-        print(solver.solve(False))
+    board = None
+    if args.board:
+        board = args.board
 
     if args.time:
         game_time = args.time
@@ -56,7 +58,7 @@ def main(args=None):
 
     if args.play:
         solver = SolveBoggle()
-        solver.set_board(column, row)
+        solver.set_board(column, row, board)
         cli_dict = Edict()  # !!! kludge ?
         cli_dict.read_dictionary()  # !!! kludge ?
         words = solver.solve(cli_dict)
@@ -70,6 +72,19 @@ def main(args=None):
                 print(word)
         print(str(i) + " words found.")
         exit()
+
+    if args.output:
+        solver = SolveBoggle()
+        solver.set_board(column, row, board)
+        cli_dict = Edict()  # !!! kludge ?
+        cli_dict.read_dictionary()  # !!! kludge ?
+        words = solver.solve(cli_dict)
+        for word in words:
+            if len(word) >= min_length:
+                print(word)
+        print(str(len(words)) + " words found.")
+
+
 
 
 if __name__ == '__main__':
